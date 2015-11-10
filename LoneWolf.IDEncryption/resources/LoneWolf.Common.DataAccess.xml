@@ -1,0 +1,678 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.DataAccess</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.DataAccess.Context.CommonDbContext">
+            <summary>
+            Abstract class holding common tasks to work with a DBContext.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Context.ICommonDbContext">
+            <summary>
+            Interface for our CommonDbContext class.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Context.IDbContext">
+            <summary>
+            Interface for interacting with a database.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.IDbContext.Set``1">
+            <summary>
+            Returns a DbSet of the specified type.
+            </summary>
+            <typeparam name="TEntity">The type for the DbSet to return</typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.IDbContext.Entry``1(``0)">
+            <summary>
+            Returns the DbEntityEntry for the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of entity.</typeparam>
+            <param name="entity">The actual entity.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.ICommonDbContext.Add``1">
+            <summary>
+            Provides a function to create an object of type TEntity, add it to the context and its associated
+            DbSet and set its primary key to a temporary value.
+            </summary>
+            <typeparam name="TEntity">The type of entity to create.</typeparam>
+            <returns>An new entity of type TEntity.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.ICommonDbContext.Add``2">
+            <summary>
+            Provides a function to create an object of type TEntity, add it to the context and its associated
+            DbSet and set its primary key to a temporary value. This function must be used if the entity
+            being created is a derived type.
+            </summary>
+            <typeparam name="TEntity">The type of entity to create.</typeparam>
+            <typeparam name="TEntityDerivedFrom">The base entity type of the entity to create.</typeparam>
+            <returns>An new entity of type TEntity.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.ICommonDbContext.NextTempPrimaryKeyId">
+            <summary>
+            Provides the context next temporary primary key id when a new entity is created
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.#ctor(System.String)">
+            <summary>
+            Creates a CommonDbContext object from the specified connectionString.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.#ctor(System.Data.Common.DbConnection)">
+            <summary>
+            Creates a CommonDbContext object from the specified DbConnection.
+            </summary>
+            <param name="dbConnection">The DbConnection.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.SaveChanges">
+            <summary>
+            Saves all the changes to the database. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.SaveChangesAsync">
+            <summary>
+            Saves all the changes to the database. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Saves all the changes to the database. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.DbContextSaveChanges">
+            <summary>
+            Function to access the standard DbContext.SaveChanges method if the sub class wishes to override the
+            SaveChanges method from this class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.DbContextSaveChangesAsync">
+            <summary>
+            Function to access the standard DbContext.SaveChanges method if the sub class wishes to override the
+            SaveChanges method from this class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.DbContextSaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Function to access the standard DbContext.SaveChanges method if the sub class wishes to override the
+            SaveChanges method from this class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.Add``1">
+            <summary>
+            Adds a new entity to the context. It will add the entity to the DbSet for that type,
+            set it's EntityState property to <see cref="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Added"/> and set it's primary
+            key id to the next temporary id. If the entity has multiple primary keys or the primary key is not
+            an int, long or string, then it will not get set here automatically.
+            </summary>
+            <typeparam name="TEntity">The type of entity to create.</typeparam>
+            <returns>The new entity.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.CommonDbContext.Add``2">
+            <summary>
+            Adds a new entity to the context. It will add the entity to the DbSet for that type,
+            set it's EntityState property to <see cref="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Added"/> and set it's primary
+            key id to the next temporary id. If the entity has multiple primary keys or the primary key is not
+            an int, long or string, then it will not get set here automatically.
+            
+            This function must be used if the entity being added is a derived type. You must specify the derived
+            type along with the entity type to create.
+            </summary>
+            <typeparam name="TEntity">The type of entity to create.</typeparam>
+            <typeparam name="TEntityDerivedFrom">
+            The base entity type of the entity to create. This must be the very bottom of the hierarchy. For
+            example, if we have Class3 that extends Class2 that extends Class1, then TEntity would be Class3
+            and TEntityDerivedFrom would be Class1. Class2 would be skipped in that scenario.
+            </typeparam>
+            <returns>The new entity.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.CommonDbContext.Log">
+            <summary>
+            Access to the logger for the context.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.CommonDbContext.ObjectContext">
+            <summary>
+            The context represented as the old style ObjectContext.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.CommonDbContext.NextTempPrimaryKeyId">
+            <summary>
+            Returns the next available primary key id for this context. This should be used when
+            creating new entities for the context so that they don't have the same primary keys.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Context.CommonDbLoggingInterceptor">
+            <summary>
+            Interceptor to allow for logging of queries to the database.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Context.CommonEntity">
+            <summary>
+            Abstract class for common entities. This class will handle setting the EntityState value for the entity.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.CommonEntity.EntityState">
+            <summary>
+            The state the entity is currently in. If the current Entity state is set to Added, then it cannot
+            be changed to Modified. No error will be thrown in this case, nothing will happen and the value will
+            stay as Added. It can be set Deleted and Unchanged however.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Context.IReadOnlyCommonEntity">
+            <summary>
+            Interface for read only entities. Simply adding this interface to an entity will make the
+            entity non-updateable, no matter what the value of it's EntityState is. The CommonDBContext
+            will not attempt to update any objects that have this interface attached to it.
+            
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Context.IVersionedEntity">
+            <summary>
+            Interface for entities that use row versioning to implement optimistic concurrency checking.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.IVersionedEntity.RowVersion">
+            <summary>
+            The version of the row.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Enums">
+            <summary>
+            Common Data Access Enums.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Enums.CommonEntityState">
+            <summary>
+            Holds the different states for an ICommonEntity being modified by an CommonDbContext.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Unchanged">
+            <summary>
+            The entity has not been changed and will not be included in the update of the context.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Added">
+            <summary>
+            The entity is new and should be added to the context.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Deleted">
+            <summary>
+            The entity has been deleted and should be removed from the context.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Modified">
+            <summary>
+            The entity has been modified and should be updated in the context.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyException">
+            <summary>
+            Exception when an update fails the optimistic concurrency check.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyException.#ctor(System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)">
+            <summary>
+            
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyException.#ctor(System.Data.Entity.Core.OptimisticConcurrencyException)">
+            <summary>
+            
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyException.FailedEntities">
+            <summary>
+            A collection of <see cref="T:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyExceptionFailedEntity"/> objects holding
+            information about each entity that failed the concurrency check.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyException.DbUpdateConcurrencyException">
+            <summary>
+            The underlying DbUpdateConcurrencyException used to create this exception. If this
+            is null, the check the OptimisticConcurrencyException property.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyException.OptimisticConcurrencyException">
+            <summary>
+            The underlying OptimisticConcurrencyException used to create this exception. If this
+            is null, the check the DbUpdateConcurrencyException property.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyExceptionFailedEntity">
+            <summary>
+            Holds information about the entity that failed in an optimistic concurrency check.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyExceptionFailedEntity.Type">
+            <summary>
+            The type of entity.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyExceptionFailedEntity.DatabaseEntity">
+            <summary>
+            The entity values in the database. If this value is null, then the entity has been deleted.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Exceptions.CommonOptimisticConcurrencyExceptionFailedEntity.AttemptedEntity">
+            <summary>
+            The entity that was attempted to be saved.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Exceptions.EntityStateException">
+            <summary>
+            An exception for when an ICommonEntity has the incorrect state.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Exceptions.EntityStateException.#ctor(System.String)">
+            <summary>
+            Creates a EntityStateException with a custom message.
+            </summary>
+            <param name="message">The message for the exception.</param>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Exceptions.ReadOnlyCommonEntityException">
+            <summary>
+            Exception used when ICommonEntity objects that are supposed to be read only are modified.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Exceptions.ReadOnlyCommonEntityException.#ctor(LoneWolf.Common.DataAccess.Context.ICommonEntity)">
+            <summary>
+            Constructs a ReadOnlyCommonEntityException for a specific ICommonEntity.
+            </summary>
+            <param name="commonEntity">The ICommonEntity that is read only.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Exceptions.ReadOnlyCommonEntityException.#ctor(System.String)">
+            <summary>
+            Creates a ReadOnlyCommonEntityException with a custom message.
+            </summary>
+            <param name="message">The message for the exception.</param>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions">
+            <summary>
+            Holds extensions for entity framework classes.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions.Load``2(System.Data.Entity.Infrastructure.DbReferenceEntry{``0,``1},System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+            <summary>
+            Loads the navigation property from the database. Allows you to eager load other navigation properties as well.
+            </summary>
+            <remarks>
+            <para>
+            This function calls DbReferenceEntry.Load when no includes are passed in. If includes are passed in,
+            it will add them to the query and load all of that data as well. This is a shorthand function for the
+            following code.
+            </para>
+            <code>
+            dbReferenceEntry.Query().IncludeMultiple(includes).Load();
+            </code>
+            <para>
+            The code above will NOT set the DbReferenceEntry.IsLoaded property to True as the Load function is no longer
+            working on the DbReferenceEntry but on an IQueryable. This extension function will set the
+            DbReferenceEntry.IsLoaded property to True.
+            </para>
+            </remarks>
+            <typeparam name="TEntity">The entity holding the reference to load.</typeparam>
+            <typeparam name="TProperty">The type of entity the reference holds.</typeparam>
+            <param name="dbReferenceEntry">The DbReferenceEntry to load.</param>
+            <param name="includes">The array of includes for eager loading.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions.LoadAsync``2(System.Data.Entity.Infrastructure.DbReferenceEntry{``0,``1},System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+            <summary>
+            Loads the navigation property from the database Asynchronously. Allows you to eager load other navigation properties as well.
+            </summary>
+            <remarks>
+            <para>
+            This function calls DbReferenceEntry.Load when no includes are passed in. If includes are passed in,
+            it will add them to the query and load all of that data as well. This is a shorthand function for the
+            following code.
+            </para>
+            <code>
+            dbReferenceEntry.Query().IncludeMultiple(includes).Load();
+            </code>
+            <para>
+            The code above will NOT set the DbReferenceEntry.IsLoaded property to True as the Load function is no longer
+            working on the DbReferenceEntry but on an IQueryable. This extension function will set the
+            DbReferenceEntry.IsLoaded property to True.
+            </para>
+            </remarks>
+            <typeparam name="TEntity">The entity holding the reference to load.</typeparam>
+            <typeparam name="TProperty">The type of entity the reference holds.</typeparam>
+            <param name="dbReferenceEntry">The DbReferenceEntry to load.</param>
+            <param name="includes">The array of includes for eager loading.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions.LoadAsync``2(System.Data.Entity.Infrastructure.DbReferenceEntry{``0,``1},System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+            <summary>
+            Loads the navigation property from the database Asynchronously. Allows you to eager load other navigation properties as well.
+            </summary>
+            <remarks>
+            <para>
+            This function calls DbReferenceEntry.Load when no includes are passed in. If includes are passed in,
+            it will add them to the query and load all of that data as well. This is a shorthand function for the
+            following code.
+            </para>
+            <code>
+            dbReferenceEntry.Query().IncludeMultiple(includes).Load();
+            </code>
+            <para>
+            The code above will NOT set the DbReferenceEntry.IsLoaded property to True as the Load function is no longer
+            working on the DbReferenceEntry but on an IQueryable. This extension function will set the
+            DbReferenceEntry.IsLoaded property to True.
+            </para>
+            </remarks>
+            <typeparam name="TEntity">The entity holding the reference to load.</typeparam>
+            <typeparam name="TProperty">The type of entity the reference holds.</typeparam>
+            <param name="dbReferenceEntry">The DbReferenceEntry to load.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="includes">The array of includes for eager loading.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions.Load``2(System.Data.Entity.Infrastructure.DbCollectionEntry{``0,``1},System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+            <summary>
+            Loads the collection from the database. Allows you to eager load other navigation properties as well.
+            </summary>
+            <remarks>
+            <para>
+            This function calls DbCollectionEntry.Load when no includes are passed in. If includes are passed in,
+            it will add them to the query and load all of that data as well. This is a shorthand function for the
+            following code.
+            </para>
+            <code>
+            dbCollectionEntry.Query().IncludeMultiple(includes).Load();
+            </code>
+            <para>
+            The code above will NOT set the DbCollectionEntry.IsLoaded property to True as the Load function is no longer
+            working on the DbCollectionEntry but on an IQueryable. This extension function will set the
+            DbCollectionEntry.IsLoaded property to True. The above code will also leave the collection set to NULL. Since
+            it was attempted to be loaded, it should be set to an empty collection, which this extension method does.
+            </para>
+            </remarks>
+            <typeparam name="TEntity">The entity holding the collection to load.</typeparam>
+            <typeparam name="TElement">The type of entities that the collection holds.</typeparam>
+            <param name="dbCollectionEntry">The DbCollectionEntry to load.</param>
+            <param name="includes">The array of includes for eager loading.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions.LoadAsync``2(System.Data.Entity.Infrastructure.DbCollectionEntry{``0,``1},System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+            <summary>
+            Loads the collection from the database asynchronously. Allows you to eager load other navigation properties as well.
+            </summary>
+            <remarks>
+            <para>
+            This function calls DbCollectionEntry.Load when no includes are passed in. If includes are passed in,
+            it will add them to the query and load all of that data as well. This is a shorthand function for the
+            following code.
+            </para>
+            <code>
+            dbCollectionEntry.Query().IncludeMultiple(includes).Load();
+            </code>
+            <para>
+            The code above will NOT set the DbCollectionEntry.IsLoaded property to True as the Load function is no longer
+            working on the DbCollectionEntry but on an IQueryable. This extension function will set the
+            DbCollectionEntry.IsLoaded property to True. The above code will also leave the collection set to NULL. Since
+            it was attempted to be loaded, it should be set to an empty collection, which this extension method does.
+            </para>
+            </remarks>
+            <typeparam name="TEntity">The entity holding the collection to load.</typeparam>
+            <typeparam name="TElement">The type of entities that the collection holds.</typeparam>
+            <param name="dbCollectionEntry">The DbCollectionEntry to load.</param>
+            <param name="includes">The array of includes for eager loading.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonDbExtensions.LoadAsync``2(System.Data.Entity.Infrastructure.DbCollectionEntry{``0,``1},System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+            <summary>
+            Loads the collection from the database asynchronously. Allows you to eager load other navigation properties as well.
+            </summary>
+            <remarks>
+            <para>
+            This function calls DbCollectionEntry.Load when no includes are passed in. If includes are passed in,
+            it will add them to the query and load all of that data as well. This is a shorthand function for the
+            following code.
+            </para>
+            <code>
+            dbCollectionEntry.Query().IncludeMultiple(includes).Load();
+            </code>
+            <para>
+            The code above will NOT set the DbCollectionEntry.IsLoaded property to True as the Load function is no longer
+            working on the DbCollectionEntry but on an IQueryable. This extension function will set the
+            DbCollectionEntry.IsLoaded property to True. The above code will also leave the collection set to NULL. Since
+            it was attempted to be loaded, it should be set to an empty collection, which this extension method does.
+            </para>
+            </remarks>
+            <typeparam name="TEntity">The entity holding the collection to load.</typeparam>
+            <typeparam name="TElement">The type of entities that the collection holds.</typeparam>
+            <param name="dbCollectionEntry">The DbCollectionEntry to load.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="includes">The array of includes for eager loading.</param>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions">
+            <summary>
+            Holds various convenience methods for CommonEntity objects.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.IsDeleted``1(``0)">
+            <summary>
+            Returns true if the ICommonEntity is marked as deleted.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to test.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.IsAdded``1(``0)">
+            <summary>
+            Returns true if the ICommonEntity is marked as added.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to test.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.IsModified``1(``0)">
+            <summary>
+            Returns true if the ICommonEntity is marked as modified. This will not return true if the entity
+            is marked as Added. Use IsChanged to test both added and modified states.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to test.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.IsUnchanged``1(``0)">
+            <summary>
+            Returns true if the ICommonEntity is marked as unchanged.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to test.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.IsChanged``1(``0)">
+            <summary>
+            Returns true if the ICommonEntity is marked as either added or modified.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to test.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.SetModified``1(``0)">
+            <summary>
+            Set the <see cref="P:LoneWolf.Common.DataAccess.Context.CommonEntity.EntityState"/> property to <see cref="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Modified"/>.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.SetDeleted``1(``0)">
+            <summary>
+            Set the <see cref="P:LoneWolf.Common.DataAccess.Context.CommonEntity.EntityState"/> property to <see cref="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Deleted"/>.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.SetAdded``1(``0)">
+            <summary>
+            Set the <see cref="P:LoneWolf.Common.DataAccess.Context.CommonEntity.EntityState"/> property to <see cref="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Added"/>.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.SetUnchanged``1(``0)">
+            <summary>
+            Set the <see cref="P:LoneWolf.Common.DataAccess.Context.CommonEntity.EntityState"/> property to <see cref="F:LoneWolf.Common.DataAccess.Enums.CommonEntityState.Unchanged"/>.
+            </summary>
+            <typeparam name="TCommonEntity">The type of ICommonEntity.</typeparam>
+            <param name="commonEntity">The entity to set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.WhereDeleted``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an IEnumerable where all the entities are marked as deleted.
+            </summary>
+            <typeparam name="TCommonEntity">The type of entity.</typeparam>
+            <param name="collection">The collection to query.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.WhereNotDeleted``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an IEnumerable where all the entities are not marked as deleted.
+            </summary>
+            <typeparam name="TCommonEntity">The type of entity.</typeparam>
+            <param name="collection">The collection to query.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.WhereModified``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an IEnumerable where all the entities are marked as modified. This will not include added entities.
+            To get added or modified entities, use WhereChanged.
+            </summary>
+            <typeparam name="TCommonEntity">The type of entity.</typeparam>
+            <param name="collection">The collection to query.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.WhereAdded``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an IEnumerable where all the entities are marked as added.
+            </summary>
+            <typeparam name="TCommonEntity">The type of entity.</typeparam>
+            <param name="collection">The collection to query.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.WhereUnchanged``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an IEnumerable where all the entities are marked as unchanged.
+            </summary>
+            <typeparam name="TCommonEntity">The type of entity.</typeparam>
+            <param name="collection">The collection to query.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.WhereChanged``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns an IEnumerable where all the entities are marked as added or modified.
+            </summary>
+            <typeparam name="TCommonEntity">The type of entity.</typeparam>
+            <param name="collection">The collection to query.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.GetRowVersionNumber(LoneWolf.Common.DataAccess.Context.IVersionedEntity)">
+            <summary>
+            Returns the <see cref="P:LoneWolf.Common.DataAccess.Context.IVersionedEntity.RowVersion"/> property as a more human readable UInt64 value.
+            </summary>
+            <param name="entity">The <see cref="T:LoneWolf.Common.DataAccess.Context.IVersionedEntity"/> of which to get the version.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Extensions.CommonEntityExtensions.SetRowVersion(LoneWolf.Common.DataAccess.Context.IVersionedEntity,System.UInt64)">
+            <summary>
+            Sets the <see cref="P:LoneWolf.Common.DataAccess.Context.IVersionedEntity.RowVersion"/> property from a UInt64 value.
+            </summary>
+            <param name="entity">The <see cref="T:LoneWolf.Common.DataAccess.Context.IVersionedEntity"/> to set.</param>
+            <param name="version">The version number.</param>
+        </member>
+        <member name="T:LoneWolf.Common.DataAccess.Helpers.DbContextHelper">
+            <summary>
+            Holds helper and extension methods for a DbContext.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.ApplyStateChanges(System.Data.Entity.DbContext)">
+            <summary>
+            Applies the manually tracked state to the ICommonEntity being tracked by the DbContext.
+            </summary>
+            <param name="context">The DbContext</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.ApplyConcurrencyCheckValues(System.Data.Entity.DbContext)">
+            <summary>
+            Sets the correct RowVersion value for all IVersionedEntity objects in the context.
+            </summary>
+            <remarks>
+            Entity framework always uses the OriginalValue when creating the update statement
+            for the concurrency check. Therefore, we have to update that original value to the
+            current value before we try and save to the database in case we are setting the
+            RowVersion column externally before saving.
+            </remarks>
+            <param name="context">The DbContext</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.ClearStateChanges(System.Data.Entity.DbContext)">
+            <summary>
+            Sets the EntityState value of all manually tracked ICommonEntity objects to by Unchanged.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.MapState(LoneWolf.Common.DataAccess.Enums.CommonEntityState)">
+            <summary>
+            Maps an CommonEntityState enum to its corresponding System.Data.Entity.EntityState enum.
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.AttachAll``1(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Attaches all objects in a list to the set.
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="set"></param>
+            <param name="entities"></param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.Delete``1(System.Data.Entity.DbSet{``0},``0)">
+            <summary>
+            Simply calls DbSet's Remove method. Delete makes more sense.
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="set"></param>
+            <param name="toDelete"></param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.IncludeMultiple``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            Convenience extension to include multiple collections in a query.
+            </summary>
+            <typeparam name="T">The type of entity to include.</typeparam>
+            <param name="query">The IQueryable object.</param>
+            <param name="includes">The list of collections or navigation properties to include.</param>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Helpers.DbContextHelper.ReformatDbEntityValidationException(System.Data.Entity.Validation.DbEntityValidationException)">
+            <summary>
+            Formats a DbEntityValidationException to be much more informative.
+            </summary>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.QueryRepository`1.Find(System.Object[])">
+            <summary>
+            Searches for the specified object by it's key values. If the object already exists in the context, that instance will be
+            returned and no database call is done.
+            </summary>
+            <param name="keyValues">The key value(s) for the object to find.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.QueryRepository`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.DataAccess.Context.QueryRepository`1.Any(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Returns true if any values are found give the specified where predicate.
+            </summary>
+            <param name="wherePredicate">Optional: The where predicate to use in the query.</param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.DataAccess.Context.QueryRepository`1.Query">
+            <summary>
+            Returns an IQueryable instance that allows you to create your own custom queries.
+            </summary>
+        </member>
+    </members>
+</doc>

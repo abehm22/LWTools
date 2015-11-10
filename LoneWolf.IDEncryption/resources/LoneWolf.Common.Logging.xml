@@ -1,0 +1,582 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.Logging</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.Logging.CommonLogStopwatch">
+            <summary>
+            Write log entries to monitor the progress of a given task.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogStopwatch.#ctor(System.String,LoneWolf.Common.Logging.CommonLogger,LoneWolf.Common.Logging.Logger.Level,System.String)">
+            <param name="action">The action the stopwatch is timing.</param>
+            <param name="commonLogger">The <see cref="T:LoneWolf.Common.Logging.CommonLogger"/> to use to write the log messages.</param>
+            <param name="level">The <see cref="T:LoneWolf.Common.Logging.Logger.Level"/> to use when writing the messages.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogStopwatch.Start">
+            <summary>
+            Starts the stop watch and writes an entry to the log.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogStopwatch.Report">
+            <summary>
+            Logs the amount of time that has passed since <see cref="M:LoneWolf.Common.Logging.CommonLogStopwatch.Start"/> was called.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogStopwatch.Stop">
+            <summary>
+            Stops the stopwatch and logs the total elapsed time since <see cref="M:LoneWolf.Common.Logging.CommonLogStopwatch.Start"/> was called.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Logging.Logger">
+            <summary>
+            The main class used to perform logging operations
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.MapLevel(LoneWolf.Common.Logging.Logger.Level)">
+            <summary>
+            Maps a Level from this class's enums to the log4net level.
+            </summary>
+            <param name="level">The level from this class's Level enum to map.</param>
+            <returns>The log4net equivalent Level.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.Log(log4net.ILog,log4net.Core.Level,System.String)">
+            <summary>
+            Calls the log4net Log function to perform the logging.
+            </summary>
+            <param name="log">The log to write the entry for.</param>
+            <param name="level">The level of the entry.</param>
+            <param name="logEntry">The message for the log file.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.FormatException(System.Exception)">
+            <summary>
+            Formats an exception to a string for a log entry.
+            </summary>
+            <param name="exception">The exception to format.</param>
+            <returns>A string representation of the exception.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetGlobalProperty(System.String)">
+            <summary>
+            Returns the global property for the logger for the specified name.
+            </summary>
+            <param name="name">The name of the property to return.</param>
+            <returns>The global property for the logger for the specified name.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.SetGlobalProperty(System.String,System.String)">
+            <summary>
+            Sets a global property for the specified name.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="value">The value for the property.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.RemoveGlobalProperty(System.String)">
+            <summary>
+            Removes the global property for the logger for the specified name.
+            </summary>
+            <param name="name">The name of the property to remove.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetThreadProperty(System.String)">
+            <summary>
+            Returns logger property for the current thread for the specified name.
+            </summary>
+            <param name="name">The name of the property to return.</param>
+            <returns>The logger property for the current thread for the specified name.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.SetThreadProperty(System.String,System.String)">
+            <summary>
+            Sets a logger property for the current thread for the specified name.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="value">The value for the property.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.RemoveThreadProperty(System.String)">
+            <summary>
+            Removes the logger property for the current thread for the specified name.
+            </summary>
+            <param name="name">The name of the property to remove.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetLogicalThreadProperty(System.String)">
+            <summary>
+            Returns the logger property for the current logical thread for the specified name. 
+            </summary>
+            <param name="name">The name of the property to return.</param>
+            <returns>The logger property for the current logical thread for the specified name.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.SetLogicalThreadProperty(System.String,System.String)">
+            <summary>
+            Sets a logger property for the current logical thread for the specified name.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="value">The value for the property.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.RemoveLogicalThreadProperty(System.String)">
+            <summary>
+            Removes the logger property for the current logical thread for the specified name.
+            </summary>
+            <param name="name">The name of the property to remove.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.IsEnabledFor(System.Object,LoneWolf.Common.Logging.Logger.Level)">
+            <summary>
+            Returns true if the log level is enabled for the specifed object
+            </summary>
+            <param name="classObject">The object to use to find the logger to test</param>
+            <param name="level">The level to test for</param>
+            <returns>True if the log level is enabled for the specified object; false otherwise</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.IsEnabledFor(System.Type,LoneWolf.Common.Logging.Logger.Level)">
+            <summary>
+            Returns true if the log level is enabled for the specifed class type
+            </summary>
+            <param name="type">The class type to use to find the logger to test</param>
+            <param name="level">The level to test for</param>
+            <returns>True if the log level is enabled for the specified class type; false otherwise</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.SetConfiguration(System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Set path of log-settings.config file
+            </summary>
+            <param name="filePath">path to log-settings.config</param>
+            <para name="watchFile">true if log4net should watch config file for changes</para>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetCurrentMethodName">
+            <summary>
+            Returns the name of the method that called this method.
+            </summary>
+            <returns>Calling method name.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetRootLoggerNode(System.Xml.XmlDocument)">
+            <summary>
+            Returns the node that contains the element "log4net" within a configuration file.
+            </summary>
+            <param name="configFile">The path to the file that holds the logger configuration.</param>
+            <returns>An XmlNode object that is the root "log4net" configuration node.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetNodeByName(System.Xml.XmlNode,System.String)">
+            <summary>
+            Returns the node with the specified name from the child nodes of the XmlNode object passed in.
+            </summary>
+            <param name="xmlNode">The parent XmlNode to search for the node with the specified name.</param>
+            <param name="name">The name of the node to search for.</param>
+            <returns>An XmlNode object if a node with the specified name is found; null otherwise.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetLoggerNode(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Returns the node that is the root node for a specific logger configuration section.
+            </summary>
+            <param name="configFile">The path to the file used to configure the logger.</param>
+            <param name="loggerName">The name of the logger to search for.</param>
+            <returns>An XmlNode that is the root node for a specific logger configuration section.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.SetLoggerConfigurationLevel(System.String,System.String,LoneWolf.Common.Logging.Logger.Level)">
+            <summary>
+            Sets the log level for the specified logger in the configuration file. The configuration file can be
+            setup to be watched for changes by the logger. When that is enabled, this function can be used to
+            dynamically set the level for the logger without having to stop and start the program to run the configuration
+            file again.
+            </summary>
+            <param name="configFileName">The full path and name to the xml config file.</param>
+            <param name="loggerName">The name of the logger to set the level for.</param>
+            <param name="level">The log level.</param>
+            <returns>True if the log level was set successfully; false otherwise.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetLoggerConfigurationLevel(System.String,System.String)">
+            <summary>
+            Returns the current log level for the specified logger.
+            </summary>
+            <param name="fileName">The path to the file that holds the configuration for the logger.</param>
+            <param name="loggerName">The name of the logger to get the level for.</param>
+            <returns>
+            A Level enum that is the current level for a particular logger; null if the logger is not found in the
+            configuration file.
+            </returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.SetLogFileName(System.String,System.String,System.String)">
+             <summary>
+            
+             </summary>
+             <param name="configFileName"></param>
+             <param name="appenderName"></param>
+             <param name="logFileName"></param>
+             <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.GetLogFileName(System.String,System.String)">
+            <summary>
+            Retrieves the log file name for the specified appender.
+            </summary>
+            <param name="configFileName">The config file to look into.</param>
+            <param name="appenderName">The log appender name to get the file for.</param>
+            <returns>The path and filename of the log file for the specified appender.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.Create(System.Object)">
+            <summary>
+            Creates a CommonLogger for subsequent logging.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <returns>A new CommonLogger</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.Create(System.Type)">
+            <summary>
+            Creates a CommonLogger for subsequent logging.
+            </summary>
+            <param name="type">The class type that holds the code that the log entry relates too.</param>
+            <returns>A new CommonLogger</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.Begin(System.Object,System.String,System.String)">
+            <summary>
+            Creates a CommonLogger and calls Begin. The logger is then returned for subsequent logging.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="reason">The reason, this will be added to the log.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+            <returns>A new CommonLogger</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.Begin(System.Type,System.String,System.String)">
+            <summary>
+            Creates a CommonLogger and calls Begin. The logger is then returned for subsequent logging.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="reason">The reason, this will be added to the log.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+            <returns>A new CommonLogger</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogTrace(System.Object,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Trace level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogTrace(System.Type,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Trace level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogInfo(System.Object,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Info level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogInfo(System.Type,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Info level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogWarn(System.Object,System.String,System.Exception)">
+            <summary>
+            Will write an entry to the log if the Warn level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogWarn(System.Type,System.String,System.Exception)">
+            <summary>
+            Will write an entry to the log if the Warn level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogWarn(System.Object,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Warn level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogWarn(System.Type,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Warn level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogError(System.Object,System.String,System.Exception)">
+            <summary>
+            Will write an entry to the log if the Error level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogError(System.Type,System.String,System.Exception)">
+            <summary>
+            Will write an entry to the log if the Error level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogError(System.Object,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Error level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogError(System.Type,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Error level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogFatal(System.Object,System.String,System.Exception)">
+            <summary>
+            Will write an entry to the log if the Fatal level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogFatal(System.Type,System.String,System.Exception)">
+            <summary>
+            Will write an entry to the log if the Fatal level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogFatal(System.Object,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Fatal level has been turned on.
+            </summary>
+            <param name="classObject">The object that holds the code that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.Logger.LogFatal(System.Type,System.String,System.String)">
+            <summary>
+            Will write an entry to the log if the Fatal level has been turned on.
+            </summary>
+            <param name="type">The class type that the log entry relates too.</param>
+            <param name="function">The function within the object.</param>
+            <param name="logEntry">The message for the log.</param>
+        </member>
+        <member name="P:LoneWolf.Common.Logging.Logger.InternalDebugging">
+            <summary>
+            Sets the internal debugging flag for the log4net API
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Logging.Logger.Level">
+             <summary>
+             Specifies the amount of detail that is used for a given logger. The order of levels from most
+             detailed to least is:
+            
+             Trace
+             Info
+             Warn
+             Error
+             Fatal
+             Off
+             </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Logging.Logger.Level.Trace">
+            <summary>
+            The most detailed log level. Trace messages should be used to mark certain points in the execution
+            of code to sort of "trace" where the program is and what functions are being called.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Logging.Logger.Level.Info">
+            <summary>
+            The second most detailed log level. Info messages should be used to output information that should be
+            logged but is not neccessarily used to find errors in the program. For instance, when someone logs
+            into a web application, the username might be out put to the log file just for reference.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Logging.Logger.Level.Warn">
+            <summary>
+            The third most detailed log level. Warn messages should be used when conditions are right for a potential
+            application error.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Logging.Logger.Level.Error">
+            <summary>
+            The fourth most detailed log level. Error messages should be used whenever an exception occurs or when
+            execution should stop because of some other error.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Logging.Logger.Level.Fatal">
+            <summary>
+            The fifth most detailed log level. Fatal messages should really only be used when an error so bad happens
+            that the program must be shut down and restarted.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Logging.Logger.Level.Off">
+            <summary>
+            The least detailed log level, as in no messages will be logged at all.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Logging.CommonLogger">
+            <summary>
+            Holds logging parameters for quick logging operations.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.#ctor(System.Type)">
+            <summary>
+            Constructs a logger for quick subsequent logging.
+            </summary>
+            <param name="type"></param>
+            <param name="methodName"></param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.#ctor(System.Object)">
+            <summary>
+            Constructs a logger for quick subsequent logging.
+            </summary>
+            <param name="classObject"></param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.IsEnabledFor(LoneWolf.Common.Logging.Logger.Level)">
+            <summary>
+            Checks if logging is enabled for the provided LogLevel.
+            </summary>
+            <param name="logLevel">LogLevel to check</param>
+            <returns>True if enabled, false is not</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Begin(System.String,System.String)">
+            <summary>
+            Begins the log, writing a begin line to the log.
+            </summary>
+            <param name="reason">Optional, will be appended to the log line</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Trace(System.String,System.String)">
+            <summary>
+            Write Trace log.
+            </summary>
+            <param name="logEntry"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Info(System.String,System.String)">
+            <summary>
+            Write Info log.
+            </summary>
+            <param name="logEntry"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Warn(System.String,System.String)">
+            <summary>
+            Write Warn log.
+            </summary>
+            <param name="logEntry"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Warn(System.Exception,System.String)">
+            <summary>
+            Write Warn log.
+            </summary>
+            <param name="exception"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Error(System.String,System.String)">
+            <summary>
+            Write Error log.
+            </summary>
+            <param name="logEntry"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Error(System.Exception,System.String)">
+            <summary>
+            Write Error log.
+            </summary>
+            <param name="exception">The exception to log.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Error(System.Exception,System.Object,System.String)">
+            <summary>
+            Write Error log.
+            </summary>
+            <param name="exception">The exception to log.</param>
+            <param name="infoObject">A serializable object containing any other data to log.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Fatal(System.String,System.String)">
+            <summary>
+            Write Fatal log.
+            </summary>
+            <param name="logEntry"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Fatal(System.Exception,System.String)">
+            <summary>
+            Write Fatal log.
+            </summary>
+            <param name="exception">The exception to log.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Fatal(System.Exception,System.Object,System.String)">
+            <summary>
+            Write Fatal log.
+            </summary>
+            <param name="exception">The exception to log.</param>
+            <param name="infoObject">A serializable object containing any other data to log.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.Write(LoneWolf.Common.Logging.Logger.Level,System.String,System.String)">
+            <summary>
+            Write log for the specified level.
+            </summary>
+            <param name="level">The level of the log to write.</param>
+            <param name="logEntry">The message to write.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.End(System.String,LoneWolf.Common.Logging.Logger.Level,System.String)">
+            <summary>
+            Logs reason as provided log level (default Info) and then ends the log.
+            </summary>
+            <param name="reason">If provided, will log as Info before ending log.</param>
+            <param name="logLevel">Log level to log the reason as.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.End(System.Exception,System.String)">
+            <summary>
+            Logs a fatal error. Ends log.
+            </summary>
+            <param name="exception"></param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.CreateLogStopwatch(System.String,LoneWolf.Common.Logging.Logger.Level,System.Boolean,System.String)">
+            <summary>
+            Creates a <see cref="T:LoneWolf.Common.Logging.CommonLogStopwatch"/> for this <see cref="T:LoneWolf.Common.Logging.CommonLogger"/>.
+            </summary>
+            <param name="action">The action the stop watch is timing.</param>
+            <param name="level">The level to log the messages for. Default is <see cref="F:LoneWolf.Common.Logging.Logger.Level.Trace"/>.</param>
+            <param name="start">True to start the stopwatch right away. Default is true.</param>
+            <param name="callerMemberName">The name of the calling member, leave empty to use CompilerServices.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.MapLevel(LoneWolf.Common.Logging.Logger.Level)">
+            <summary>
+            Maps a Level from this class's enums to the log4net level.
+            </summary>
+            <param name="level">The level from this class's Level enum to map.</param>
+            <returns>The log4net equivalent Level.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Logging.CommonLogger.FormatException(System.Exception)">
+            <summary>
+            Formats an exception to a string for a log entry.
+            </summary>
+            <param name="exception">The exception to format.</param>
+            <returns>A string representation of the exception.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.Logging.CommonLogger.TypeName">
+            <summary>
+            The name of the Object that is logging.
+            </summary>
+        </member>
+    </members>
+</doc>

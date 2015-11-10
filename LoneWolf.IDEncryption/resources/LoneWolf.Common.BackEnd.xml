@@ -1,0 +1,1927 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.BackEnd</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.BackEnd.Attributes.TestLocationAttribute">
+            <summary>
+            Specifies the mapping between an entity property and its related database field. It should be applied to entity properties.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Attributes.TestLocationAttribute.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="location">The location of the unit test.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.TestLocationAttribute.Location">
+            <summary>
+            Indicates the location of the unit test
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Configuration.EntityAssemblyElement">
+            <summary>
+            Assembly to load for entity registration.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Configuration.EntityAssemblyElement.AssemblyName">
+            <summary>
+            Assembly full name.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Configuration.EntityAssemblyElementCollection">
+            <summary>
+            Collection of assemblies to load for entity registration.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Configuration.EntityAssemblyElementCollection.CreateNewElement">
+            <summary>
+            Gets a new element for the collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Configuration.EntityAssemblyElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets an element key value.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Configuration.EntityAssemblyElementCollection.Item(System.Int32)">
+            <summary>
+            Returns the assembly to load on the index position.
+            </summary>
+            <param name="index">Position</param>
+            <returns>Assembly to load.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Configuration.EntityConfigurationSection">
+            <summary>
+            Configuration section for entity registration.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Configuration.EntityConfigurationSection.Current">
+            <summary>
+            Gets an instance for the current section.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Configuration.EntityConfigurationSection.EntityAssemblies">
+            <summary>
+            Collection of assemblies to load for entity registration.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1">
+            <summary>
+            Mantains sql queries in memory for a specific entity type.
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="masterTable">Entity mapped master table.</param>
+            <param name="baseQuery">Entity base query.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.InsertQuery">
+            <summary>
+            Insert query.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.UpdateQuery">
+            <summary>
+            Update query.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.DeleteQuery">
+            <summary>
+            Delete query.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.ListQuery">
+            <summary>
+            List query.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.MasterTable">
+            <summary>
+            Master table.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.KeySearchCondition">
+            <summary>
+            Key search condition.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.QueryHolder`1.DefaultOrder">
+            <summary>
+            Default order.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition">
+            <summary>
+            Composite search condition.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition.GetHasConditions">
+            <summary>
+            Indicates if the search composition as conditions or compositions attached.
+            </summary>
+            <returns>True if at least one condition or composition is found. Otherwise, false.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition.Conditions">
+            <summary>
+            Conditions.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition.Compositions">
+            <summary>
+            Compositions.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition.HasConditions">
+            <summary>
+            Indicates if the search composition as conditions or compositions attached.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters">
+            <summary>
+            Composite parameter list for complex query filters.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters.GetConditions">
+            <summary>
+            Gets composite search condition.
+            </summary>
+            <returns>Composite search condition.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters.GetParameters">
+            <summary>
+            Gets a parameters list
+            </summary>
+            <returns>Parameters list</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters.RenameParameters(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList)">
+            <summary>
+            Changes the parameters names to ensure that the names are not repeated.
+            </summary>
+            <param name="searchParameters">Search parameter list to rename</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters.AddParameters(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList,LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Adds a search parameters list.
+            </summary>
+            <param name="searchParameters">Search parameter list.</param>
+            <param name="compositionOperator">Boolean operator for the composition</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.CompositeParameters.AddComposition(LoneWolf.Common.BackEnd.DataAccess.CompositeParameters,LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Adds a composite parameter.
+            </summary>
+            <param name="composition">Composite parameter</param>
+            <param name="compositionOperator">Boolean operator for the composition</param>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.SearchParameterList">
+            <summary>
+            Search parameters list.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameterList.InsertItem(System.Int32,LoneWolf.Common.BackEnd.DataAccess.SearchParameter)">
+            <summary>
+            Inserts a new search parameter. If a search parameter with the same name is found, the name is changed.
+            </summary>
+            <param name="index">Index position.</param>
+            <param name="item">Search parameter to insert.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameterList.GetSearchConditions">
+            <summary>
+            Gets a list of search conditions.
+            </summary>
+            <returns>Search condition list.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameterList.op_Implicit(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList)~LoneWolf.Common.BackEnd.DataAccess.ParameterList">
+            <summary>
+            Operator to cast to a ParameterList.
+            </summary>
+            <param name="list">Source list.</param>
+            <returns>ParameterList</returns>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.SearchParameter">
+            <summary>
+            Type translated by the DataAccessManager into a DbParameter, also used as template for query building operations.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.Parameter">
+            <summary>
+            Type translated by the DataAccessManager into a DbParameter.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.Parameter.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor)">
+            <summary>
+            Creates an input Parameter instance with no value.
+            </summary>
+            <param name="propertyDescriptor">Property descriptor.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.Parameter.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor,System.Data.ParameterDirection)">
+            <summary>
+            Creates an input Parameter instance with no value.
+            </summary>
+            <param name="propertyDescriptor">Property descriptor.</param>
+            <param name="direction">Parameter direction.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.Parameter.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            Creates a Parameter instance.
+            </summary>
+            <param name="propertyDescriptor">Property descriptor.</param>
+            <param name="direction">Parameter direction.</param>
+            <param name="value">Parameter value.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.Parameter.#ctor(System.String)">
+            <summary>
+            Creates an input Parameter instance with no value.
+            </summary>
+            <param name="name">Parameter name.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.Parameter.#ctor(System.String,System.Data.DbType,System.Data.ParameterDirection)">
+            <summary>
+            Creates a Parameter instance with no value.
+            </summary>
+            <param name="name">Parameter name.</param>
+            <param name="parameterType">Parameter type.</param>
+            <param name="direction">Parameter direction.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.Parameter.#ctor(System.String,System.Data.DbType,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            Creates a Parameter instance.
+            </summary>
+            <param name="name">Parameter name.</param>
+            <param name="parameterType">Parameter type.</param>
+            <param name="direction">Parameter direction.</param>
+            <param name="value">Parameter value.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.Parameter.ParameterType">
+            <summary>
+            Parameter value type.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.Parameter.Name">
+            <summary>
+            Parameter name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.Parameter.Value">
+            <summary>
+            Parameter value.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.Parameter.Direction">
+            <summary>
+            Parameter direction.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.Parameter.IsInputParameter">
+            <summary>
+            Gets a value indicating if the parameter should be handled as an input parameter by DataAccessManager.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.Parameter.IsOutputParameter">
+            <summary>
+            Gets a value indicating if the parameter should be handled as an output parameter by DataAccessManager.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor,System.Object,LoneWolf.Common.BackEnd.ComparisonOperator)">
+            <summary>
+            Creates a search parameter instance with boolean operator set to AND.
+            </summary>
+            <param name="propertyDescriptor">Entity property descriptor.</param>
+            <param name="value">Search parameter value.</param>
+            <param name="searchComparisonOperator">Search parameter comparison operator.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor,System.Object,LoneWolf.Common.BackEnd.ComparisonOperator,LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Creates a search parameter instance.
+            </summary>
+            <param name="propertyDescriptor">Entity property descriptor.</param>
+            <param name="value">Search parameter value.</param>
+            <param name="searchComparisonOperator">Search parameter comparison operator.</param>
+            <param name="searchBooleanOperator">Search parameter boolean operator.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.#ctor(System.String,System.Data.DbType)">
+            <summary>
+            Creates a search parameter instance with null value, search comparison set to Equal and boolean operator set to AND.
+            </summary>
+            <param name="name">Search parameter name.</param>
+            <param name="parameterType">Search parameter type.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.#ctor(System.String,System.Data.DbType,System.Object,LoneWolf.Common.BackEnd.ComparisonOperator)">
+            <summary>
+            Creates a search parameter instance with boolean operator set to AND.
+            </summary>
+            <param name="name">Search parameter name.</param>
+            <param name="parameterType">Search parameter type.</param>
+            <param name="value">Search parameter value.</param>
+            <param name="searchComparisonOperator">Search parameter comparison operator.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.#ctor(System.String,System.Data.DbType,System.Object,LoneWolf.Common.BackEnd.ComparisonOperator,LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Creates a search parameter instance.
+            </summary>
+            <param name="name">Search parameter name.</param>
+            <param name="parameterType">Search parameter type.</param>
+            <param name="value">Search parameter value.</param>
+            <param name="searchComparisonOperator">Search parameter comparison operator.</param>
+            <param name="searchBooleanOperator">Search parameter boolean operator.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.Name">
+            <summary>
+            Parameter name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.SearchParameter.SearchCondition">
+            <summary>
+            Search condition related to the current search parameter.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder">
+            <summary>
+            Represents a sort order when building queries.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor,LoneWolf.Common.BackEnd.EntitySortDirection)">
+            <summary>
+            Creates a sort order instance with Ascending sort direction.
+            </summary>
+            <param name="propertyDescriptor">Property descriptor.</param>
+            <param name="sortDirection">Sort direction.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder.#ctor(LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor)">
+            <summary>
+            Creates a sort order instance with Ascending sort direction.
+            </summary>
+            <param name="propertyDescriptor">Property descriptor.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder.#ctor(System.String)">
+            <summary>
+            Creates a query parameter instance with Ascending sort direction.
+            </summary>
+            <param name="fieldName">Field name.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder.#ctor(System.String,LoneWolf.Common.BackEnd.EntitySortDirection)">
+            <summary>
+            Creates a sort order instance.
+            </summary>
+            <param name="fieldName">Field name.</param>
+            <param name="sortDirection">Sort direction.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder.FieldName">
+            <summary>
+            Field name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder.SortDirection">
+            <summary>
+            Sort direction.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.ParameterList">
+            <summary>
+            Keyed collection of Parameter instances. The parameter name is the key value.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.ParameterList.AddList(LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Imports a list of parameters.
+            </summary>
+            <param name="list">Parameters to import.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.ParameterList.HasOutputParameters">
+            <summary>
+            Indicates if at least one of the parameters is an output parameter.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder">
+            <summary>
+            Builds queries.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.GetOrderByClause(System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Buids a ORDER BY clause based on a list of sort order instances.
+            </summary>
+            <param name="order">Sort order</param>
+            <returns>ORDER BY clause</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.ParseBooleanOperator(LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Gets a string representing a BooleanOperator for a WHERE clause.
+            </summary>
+            <param name="booleanOperator">Boolean operator.</param>
+            <returns>Parsed boolean operator.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.GetWhereFilter(Microsoft.Practices.EnterpriseLibrary.Data.Database,LoneWolf.Common.BackEnd.DataAccess.SearchCondition)">
+            <summary>
+            Gets a filter for a WHERE clause.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="condition">Search condition</param>
+            <returns>Filter based on the search condition</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.ParseCompositeCondition(Microsoft.Practices.EnterpriseLibrary.Data.Database,LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition)">
+            <summary>
+            Buids a composite filter for a WHERE clause.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="compositeCondition">Composite search condition</param>
+            <returns>Filters for WHERE clause</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.GetWhereClause(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.SearchCondition})">
+            <summary>
+            Buids a WHERE clause based on a list of search conditions.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="conditions">Search conditions</param>
+            <returns>WHERE clause</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.GetWhereClause(Microsoft.Practices.EnterpriseLibrary.Data.Database,LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition)">
+            <summary>
+            Buids a WHERE clause based on a composite search condition.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="compositeCondition">Composite search condition</param>
+            <returns>WHERE clause</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildInsertQuery(System.String,System.String,System.String[],System.String)">
+            <summary>
+            Builds an insert query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="tableName">Table name.</param>
+            <param name="fieldNames">Field names.</param>
+            <returns>Insert query string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildUpdateQuery(System.String,System.String,System.String[],System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.SearchCondition})">
+            <summary>
+            Builds an update query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="tableName">Table name.</param>
+            <param name="fieldNames">Field names.</param>
+            <param name="parameters">Search conditions.</param>
+            <returns>Update query string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildDeleteQuery(System.String,System.String,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.SearchCondition})">
+            <summary>
+            Builds a delete query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="tableName">Table name.</param>
+            <param name="conditionParameters">Search conditions.</param>
+            <returns>Delete query string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildSelectQuery(System.String,System.String,LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Builds a select query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="baseQuery">Base query.</param>
+            <param name="compositeCondition">Composite Search Conditions.</param>
+            <param name="order">Sort Order</param>
+            <returns>Select query string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildSelectQuery(System.String,System.String,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.SearchCondition},System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Builds a select query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="baseQuery">Base query.</param>
+            <param name="conditionParameters">Search Conditions.</param>
+            <param name="order">Sort Order</param>
+            <returns>Select query string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildSelectQuery(System.String,System.String,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Builds a select query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="baseQuery">Base query.</param>
+            <param name="order">Sort Order</param>
+            <returns>Select query string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.QueryBuilder.BuildCountQuery(System.String,System.String,LoneWolf.Common.BackEnd.DataAccess.CompositeSearchCondition)">
+            <summary>
+            Builds a select count(*) query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="baseQuery">Base query.</param>
+            <param name="compositeCondition">Composite Search Conditions.</param>
+            <returns>Select count query string.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.SearchCondition">
+            <summary>
+            Type translated by QueryBuilder as sql WHERE clause arguments.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchCondition.#ctor(System.String)">
+            <summary>
+            Creates a search condition instance with comparison operator set to Equal and boolean operator set to Or.
+            </summary>
+            <param name="fieldName">Field name.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.SearchCondition.#ctor(System.String,LoneWolf.Common.BackEnd.ComparisonOperator,LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Creates a search condition instance.
+            </summary>
+            <param name="fieldName">Field name.</param>
+            <param name="searchComparisonOperator">Search condition comparison operator.</param>
+            <param name="searchBooleanOperator">Search condition boolean operator.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.SearchCondition.FieldName">
+            <summary>
+            Search condition field name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.SearchCondition.ParameterName">
+            <summary>
+            Search condition field name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.SearchCondition.ParameterBooleanOperator">
+            <summary>
+            Search condition boolean operator.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.DataAccess.SearchCondition.ParameterComparisonOperator">
+            <summary>
+            Search condition comparison operator.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Attributes.ControlledTypeAttribute">
+            <summary>
+            Specifies the controlled type. It should be applied to EntityControllerBase descendants.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Attributes.ControlledTypeAttribute.#ctor(System.Type)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entityType">Controlled entity type.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.ControlledTypeAttribute.EntityType">
+            <summary>
+            Controlled entity type.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute">
+            <summary>
+            Specifies the mapping between an entity property and its related database field. It should be applied to entity properties.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute.#ctor(System.String,System.Data.DbType)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="fieldName">Mapped field name.</param>
+            <param name="fieldType">Mapped field type.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute.IsDerived">
+            <summary>
+            Indicates the property is not mapped to a master table field.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute.IsAutogenerated">
+            <summary>
+            The mapped field value is autogenerated on the database.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute.IsKey">
+            <summary>
+            The mapped field is part of the master table primary key.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute.FieldType">
+            <summary>
+            Mapped field type.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Attributes.MappedPropertyAttribute.FieldName">
+            <summary>
+            Mapped field name.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.ControllerBase`1">
+            <summary>
+            Base clase for controllers.
+            </summary>
+            <typeparam name="T">Entity type.</typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.GetDbServiceName">
+            <summary>
+            Gets the set connection string name.
+            </summary>
+            <returns>Connection string name.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.ImportRowsFromQuery(System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes a database command and load the resulting datareader rows into a new entity list.
+            </summary>
+            <param name="commandType">Database command type</param>
+            <param name="commandText">Database command text</param>
+            <param name="parameters">Parameters</param>
+            <returns>Entities</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.ImportReaderRow(System.Data.IDataReader)">
+            <summary>
+            Descendants should implement this method. The values to read are the current IDataRecord of IDataReader.
+            </summary>
+            <param name="dataReader">IDataReader to get the values.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.GetList(System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Gets a list of entities using a custom database command.
+            </summary>
+            <param name="commandType">Database command type</param>
+            <param name="commandText">Database command text</param>
+            <param name="parameters">Parameters</param>
+            <returns>List of entities</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.GetList(System.Data.CommandType,System.String)">
+            <summary>
+            Gets a list of entities using a custom database command.
+            </summary>
+            <param name="commandType">Database command type</param>
+            <param name="commandText">Database command text</param>
+            <returns>List of entities</returns>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.ControllerBase`1.DbServiceName">
+            <summary>
+            The name of the connection string
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1">
+            <summary>
+            Base clase for entity controllers.
+            </summary>
+            <typeparam name="T">Entity type.</typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.ThrowNotFoundException">
+            <summary>
+            Throws an exception in case an entity is requested and not found on database.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.Insert(`0)">
+            <summary>
+            Validates an entity and inserts the values on the database.
+            </summary>
+            <param name="entity">Entity to insert</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.Update(`0)">
+            <summary>
+            Validates an entity and updates the values on the database.
+            </summary>
+            <param name="entity">Entity to update</param>
+            <returns>Affected record count.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.Delete(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList)">
+            <summary>
+            Deletes all entities from database according to the search parameter passed.
+            </summary>
+            <param name="parameters">Search parameters.</param>
+            <returns>Affected record count.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.Delete(`0)">
+            <summary>
+            Validates an entity and deletes the values on the database.
+            </summary>
+            <param name="entity">Entity to validate</param>
+            <returns>Affected record count.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.Validate(`0,System.Boolean)">
+            <summary>
+            Validates an entity properties values.
+            </summary>
+            <param name="entity">Entity to validate.</param>
+            <param name="includeKeys">Indicates if key properties should be validated.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.Validate(`0,LoneWolf.Common.BackEnd.EntityValidationOption)">
+            <summary>
+            Validates an entity properties values.
+            </summary>
+            <param name="entity">Entity to validate.</param>
+            <param name="validationOption">Validation option.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.PerformCustomValidation(`0,LoneWolf.Common.BackEnd.EntityValidationOption)">
+            <summary>
+            Allows custom validation on derived types.
+            </summary>
+            <param name="entity">Entity to validate.</param>
+            <param name="validationOption">Validation option.</param>
+            <returns>Custom validation results.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetParameters(`0,System.Boolean)">
+            <summary>
+            Get a parameter list based on property values
+            </summary>
+            <param name="entity">Entity to extract the values.</param>
+            <param name="isNewEntity">Indicates if it is a new entity.</param>
+            <returns>Parameter list.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetKeyParameters(`0)">
+            <summary>
+            Get a key parameter list based on property values
+            </summary>
+            <param name="entity">Entity to extract the values.</param>
+            <returns>Parameter list.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.SetKeyValues(`0,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Set key properties values based on parameter values.
+            </summary>
+            <param name="entity">Entity to set its properties values.</param>
+            <param name="parameters">Parameters to extract the values.</param>
+            <returns>Parameter list.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetList">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetList(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList)">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <param name="searchParameters">Search parameters to apply.</param>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetList(System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <param name="order">Sort order to apply.</param>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetList(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <param name="searchParameters">Search parameters to apply.</param>
+            <param name="order">Sort order to apply.</param>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetList(LoneWolf.Common.BackEnd.DataAccess.CompositeParameters)">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <param name="composition">Composite parameter.</param>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetList(LoneWolf.Common.BackEnd.DataAccess.CompositeParameters,System.Collections.Generic.List{LoneWolf.Common.BackEnd.DataAccess.EntitySortOrder})">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <param name="composition">Composite parameter.</param>
+            <param name="order">Sort order to apply.</param>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetCount(LoneWolf.Common.BackEnd.DataAccess.CompositeParameters)">
+            <summary>
+            Gets an entity count.
+            </summary>
+            <param name="composition">Composite parameter.</param>
+            <returns>Entity count.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.GetCount(LoneWolf.Common.BackEnd.DataAccess.SearchParameterList)">
+            <summary>
+            Gets an entity count.
+            </summary>
+            <param name="searchParameters">Search parameters to apply.</param>
+            <returns>Entity count.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityControllerBase`1.EntityQueryHolder">
+            <summary>
+            Query holder instance for the controller entity type.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.EntityBase">
+            <summary>
+            Base clase for entities.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityBase.State">
+            <summary>
+            Represents the current state of the entity instance.
+            </summary>
+            <remarks>
+            This property is not refreshed automatically. The developer should update its value according to his need: batch updates, for example.
+            </remarks>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager">
+            <summary>
+            Handles data access operations.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteScalar``1(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the first column of the first row in the result set returned by the query.
+            </summary>
+            <typeparam name="T">Return value type.</typeparam>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>The first column of the first row in the result set returned by the query</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteScalar``1(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the first column of the first row in the result set returned by the query.
+            </summary>
+            <typeparam name="T">Return value type.</typeparam>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>The first column of the first row in the result set returned by the query</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteScalar``1(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the first column of the first row in the result set returned by the query.
+            </summary>
+            <typeparam name="T">Return value type.</typeparam>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>The first column of the first row in the result set returned by the query</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteScalar``1(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the first column of the first row in the result set returned by the query.
+            </summary>
+            <typeparam name="T">Return value type.</typeparam>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>The first column of the first row in the result set returned by the query</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteScalar``1(System.String,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the first column of the first row in the result set returned by the query.
+            </summary>
+            <typeparam name="T">Return value type.</typeparam>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>The first column of the first row in the result set returned by the query</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteScalar``1(System.String,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the first column of the first row in the result set returned by the query.
+            </summary>
+            <typeparam name="T">Return value type.</typeparam>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>The first column of the first row in the result set returned by the query</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteNonQuery(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the number of records affected by the query.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Number of records affected.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteNonQuery(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the number of records affected by the query.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Number of records affected.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteNonQuery(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the number of records affected by the query.
+            </summary>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Number of records affected.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteNonQuery(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the number of records affected by the query.
+            </summary>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Number of records affected.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteNonQuery(System.String,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the number of records affected by the query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Number of records affected.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteNonQuery(System.String,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns the number of records affected by the query.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Number of records affected.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteReader(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a IDataReader through which the result can be read.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>IDataReader through which the result can be read.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteReader(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a IDataReader through which the result can be read.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>IDataReader through which the result can be read.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteReader(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a IDataReader through which the result can be read.
+            </summary>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>IDataReader through which the result can be read.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteReader(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a IDataReader through which the result can be read.
+            </summary>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>IDataReader through which the result can be read.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteReader(System.String,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a IDataReader through which the result can be read.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>IDataReader through which the result can be read.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.ExecuteReader(System.String,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a IDataReader through which the result can be read.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>IDataReader through which the result can be read.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetTableFromReader(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a DataTable fill with IDataReader rows.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>DataTable with IDataReader contents.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetTableFromReader(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a DataTable fill with IDataReader rows.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>DataTable with IDataReader contents.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetTableFromReader(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a DataTable fill with IDataReader rows.
+            </summary>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>DataTable with IDataReader contents.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetTableFromReader(System.Data.Common.DbConnectionStringBuilder,System.Data.Common.DbProviderFactory,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a DataTable fill with IDataReader rows.
+            </summary>
+            <param name="connectionStringBuilder">Connection string builder.</param>
+            <param name="providerFactory">Provider factory.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>DataTable with IDataReader contents.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetTableFromReader(System.String,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a DataTable fill with IDataReader rows.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>DataTable with IDataReader contents.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.FillDataSetFromReader(System.Data.DataSet,System.String,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and fills a DataSet with IDataReader rows.
+            </summary>
+            <param name="dataSet">Dataset</param>
+            <param name="dataTables">Datatables</param>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetTableFromReader(System.String,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a DataTable fill with IDataReader rows.
+            </summary>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>DataTable with IDataReader contents.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetSingleValueList``1(System.String,System.Data.CommandType,System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a single value list.
+            </summary>
+            <typeparam name="T">List item value type.</typeparam>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Single value list</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetSingleValueList``1(System.String,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Executes the specified command and returns a single value list.
+            </summary>
+            <typeparam name="T">List item value type.</typeparam>
+            <param name="dbServiceName">Connection string name.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Single value list</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetCommand(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.CommandType,System.String,System.Int32,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Gets a provider specific DbCommand.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="commandType">Command type.</param>
+            <param name="commandText">Command text.</param>
+            <param name="commandTimeOut">Command time out.</param>
+            <param name="parameters">Command parameters.</param>
+            <returns>Provider specific DbCommand.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.SetCommandParameters(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.Data.Common.DbCommand,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Set the parameters on the DbCommand object instance.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="cmd">DbCommand to set the parameters.</param>
+            <param name="parameters">Command parameters.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.SetOutputParameterValues(Microsoft.Practices.EnterpriseLibrary.Data.Database,LoneWolf.Common.BackEnd.DataAccess.ParameterList,System.Data.Common.DbCommand)">
+            <summary>
+            Gets the output parameters values.
+            </summary>
+            <param name="db">Database object instance.</param>
+            <param name="parameters">Command parameters.</param>
+            <param name="cmd">DbCommand to set the parameters.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.DataAccess.DataAccessManager.GetConnectionStringValue``1(System.String,System.String)">
+            <summary>
+            Gets a connection string value.
+            </summary>
+            <typeparam name="T">Value type</typeparam>
+            <param name="connectionString">Connection string.</param>
+            <param name="keyword">Keyword.</param>
+            <returns>Value for keyword.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.EntityControllerManager">
+            <summary>
+            Mantains the list of registered entities.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityControllerManager.GetRegisteredEntities">
+            <summary>
+            Loads the configured assemblies and looks for entities and their respective controllers.
+            </summary>
+            <returns>Entities registration information</returns>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityControllerManager.RegisteredEntities">
+            <summary>
+            Entities registration information.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptorList">
+            <summary>
+            Keyed collection of entity property descriptors.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor">
+            <summary>
+            Holds an entity property information.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.PropertyInfo">
+            <summary>
+            Reflected PropertyInfo
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.IsDerived">
+            <summary>
+            Indicates the property is not mapped to a master table field.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.FieldType">
+            <summary>
+            Mapped field type.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.FieldName">
+            <summary>
+            Mapped field name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.IsAutogenerated">
+            <summary>
+            The mapped field value is autogenerated on the database.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.IsKey">
+            <summary>
+            The mapped field is part of the master table primary key.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.EntityType">
+            <summary>
+            Entity type
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.PropertyType">
+            <summary>
+            Reflected PropertyInfo type.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityPropertyDescriptor.PropertyName">
+            <summary>
+            Reflected PropertyInfo name.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.EntityRegistrationInfo">
+            <summary>
+            Holds a registered entity information.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.EntityRegistrationInfo.#ctor(System.Type,System.Type)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="entityType">Entity type.</param>
+            <param name="entityControllerType">Controller type.</param>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityRegistrationInfo.PropertyDescriptors">
+            <summary>
+            Registered properties information
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityRegistrationInfo.EntityControllerType">
+            <summary>
+            Controller type.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.EntityRegistrationInfo.EntityType">
+            <summary>
+            Entity type.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Entities.SearchControllerBase`1">
+            <summary>
+            Base clase for search controllers.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Entities.SearchControllerBase`1.GetList(LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Gets a list of entities.
+            </summary>
+            <param name="parameters">Parameter list.</param>
+            <returns>List of entities.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.SearchControllerBase`1.SearchCommandText">
+            <summary>
+            Gets the search command text.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Entities.SearchControllerBase`1.SearchCommandType">
+            <summary>
+            Gets the search command type.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.EntityState">
+            <summary>
+            Represents the current state of an EntityBase descendant instance.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityState.None">
+            <summary>
+            Default value. No action taken over the Entity.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityState.New">
+            <summary>
+            Indicates the instance is new.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityState.Updated">
+            <summary>
+            Indicates the instance has been updated.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityState.Deleted">
+            <summary>
+            Indicates the instance has been deleted.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityState.Dirty">
+            <summary>
+            Indicates the instance has been updated, deleted or it is a new instance.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.FieldNotFoundBehavior">
+            <summary>
+            Represents the action to take when a field is not found on a query result set.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.FieldNotFoundBehavior.ThrowException">
+            <summary>
+            An exception should be thrown.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.FieldNotFoundBehavior.Ignore">
+            <summary>
+            Do nothing if the field is missing.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.EntitySortDirection">
+            <summary>
+            Represents the sort direction when sorting entities lists.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntitySortDirection.Ascending">
+            <summary>
+            Sort the list ascending
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntitySortDirection.Descending">
+            <summary>
+            Sort the list descending
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.BooleanOperator">
+            <summary>
+            Represents the boolean operator for queries.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.BooleanOperator.And">
+            <summary>
+            AND operator is applied.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.BooleanOperator.Or">
+            <summary>
+            OR operator is applied.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.BooleanOperator.AndNot">
+            <summary>
+            Negated AND operator is applied.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.BooleanOperator.OrNot">
+            <summary>
+            Negated OR operator is applied.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.ComparisonOperator">
+            <summary>
+            Represents the comparison operator for  queries.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.Contains">
+            <summary>
+            String is in the compared value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.StartsWith">
+            <summary>
+            The compared value starts with the provided string.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.EndsWith">
+            <summary>
+            The compared value ends with the provided string.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.Equal">
+            <summary>
+            The compared value is equal to the provided value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.Distinct">
+            <summary>
+            The compared value is distinct to the provided value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.Less">
+            <summary>
+            The compared value is less than the provided value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.Greater">
+            <summary>
+            The compared value is greater than the provided value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.LessOrEqual">
+            <summary>
+            The compared value is less or equal to the provided value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.GreaterOrEqual">
+            <summary>
+            The compared value is greater or equal to the provided value.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.IsNull">
+            <summary>
+            The compared value is null.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.ComparisonOperator.IsNotNull">
+            <summary>
+            The compared value is not null.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.EntityValidationOption">
+            <summary>
+            Indicates which properties should be validated.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityValidationOption.ValidateKeys">
+            <summary>
+            Validate key properties.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityValidationOption.ValidateNonKeys">
+            <summary>
+            Validate non key properties.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.BackEnd.EntityValidationOption.FullValidatation">
+            <summary>
+            Validate all properties.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Exceptions.DuplicateEntityException">
+            <summary>
+            Thrown by entity controllers when a property validation is not passed.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Exceptions.EntityException">
+            <summary>
+            Thrown by entity controllers when invalid condions and other common errors associated to entities are found.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Exceptions.DuplicateEntityException.#ctor(System.String,System.String)">
+            <summary>
+            Property validation exception.
+            </summary>
+            <param name="entityName">The name of the entity.</param>
+            <param name="message">The message you want displayed.</param>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Exceptions.PropertyValidationException">
+            <summary>
+            Thrown by entity controllers when a property validation is not passed.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.Contains">
+            <summary>
+              Looks up a localized string similar to Contains.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.Distinct">
+            <summary>
+              Looks up a localized string similar to Distinct to.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.EndsWith">
+            <summary>
+              Looks up a localized string similar to Ends with.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.Equal">
+            <summary>
+              Looks up a localized string similar to Equal to.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.Greater">
+            <summary>
+              Looks up a localized string similar to Greater than.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.GreaterOrEqual">
+            <summary>
+              Looks up a localized string similar to Greater or Equal to.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.IsNotNull">
+            <summary>
+              Looks up a localized string similar to Has No Value.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.IsNull">
+            <summary>
+              Looks up a localized string similar to Has Value.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.Less">
+            <summary>
+              Looks up a localized string similar to Less than.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.LessOrEqual">
+            <summary>
+              Looks up a localized string similar to Less or Equal to.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ComparisonOperatorText.StartsWith">
+            <summary>
+              Looks up a localized string similar to Starts with.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Properties.ExceptionMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.CommandTypeNotSupported">
+            <summary>
+              Looks up a localized string similar to Command type &quot;{0}&quot; is not supported on this method..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.CommandTypeSupported">
+            <summary>
+              Looks up a localized string similar to Only command type &quot;{0}&quot; is supported on this method..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.ConcreteControllerNotFound">
+            <summary>
+              Looks up a localized string similar to Concrete controller for type {0} not found..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.ConnectionStringKeywordNotFound">
+            <summary>
+              Looks up a localized string similar to Value for keyword &quot;{0}&quot; not found on connection string &quot;{1}&quot;..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.ConnectionStringNotFound">
+            <summary>
+              Looks up a localized string similar to Connection string with name &quot;{0}&quot; not found..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.CorrelationAssemblyEmptyName">
+            <summary>
+              Looks up a localized string similar to Name cannot be null or empty string..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.EntityAlreadyRegistered">
+             <summary>
+               Looks up a localized string similar to Entity type:
+            
+            	{0}
+            
+            has been already registered by controller:
+            
+            	{1}
+            
+            Current controller:
+            	
+            	{2}.
+             </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.EntityNotFound">
+            <summary>
+              Looks up a localized string similar to Entity not found..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.ExecuteReaderOutputParameterNotAllowed">
+            <summary>
+              Looks up a localized string similar to Output parameters are not allowed on this method. Use GetTableFromReader instead..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.FieldNameLenght">
+            <summary>
+              Looks up a localized string similar to Field name must have a length greater than zero..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.FieldNotFound">
+            <summary>
+              Looks up a localized string similar to Field {0} not found on result set..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.FriendlyNameNotFound">
+            <summary>
+              Looks up a localized string similar to Friendly name for type {0} not found..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyEmptyValidation">
+            <summary>
+              Looks up a localized string similar to Value cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyGreaterThanValidation">
+            <summary>
+              Looks up a localized string similar to Value must be greater than {1}..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyLengthValidation">
+            <summary>
+              Looks up a localized string similar to Maximum lentgh for value is {1}..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyNameNotFound">
+            <summary>
+              Looks up a localized string similar to Property {0} not found..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyNameNullOrEmpty">
+            <summary>
+              Looks up a localized string similar to Property name cannot be null or empty string..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertySmallerThanValidation">
+            <summary>
+              Looks up a localized string similar to Value must be smaller than {1}..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyValidationSummary">
+            <summary>
+              Looks up a localized string similar to Summary:.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.PropertyValidationType">
+            <summary>
+              Looks up a localized string similar to Entity type: {0}.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.RegisteredControllerNotFound">
+            <summary>
+              Looks up a localized string similar to No controller has been registered for entity type{0}..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.SearchConditionRequiredNull">
+            <summary>
+              Looks up a localized string similar to Value for search parameter with condition {0} should be null..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.ExceptionMessages.TypeNotSupported">
+            <summary>
+              Looks up a localized string similar to Type {0} is not supported..
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.Utils">
+            <summary>
+            Backend helper class.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.CompareValues``1(``0,``0,LoneWolf.Common.BackEnd.EntitySortDirection)">
+            <summary>
+            Compares two values according their type and sort direction.
+            </summary>
+            <typeparam name="T">Values type</typeparam>
+            <param name="a">First value</param>
+            <param name="b">Second value</param>
+            <param name="direction">Sort direction.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetComparisonOperators(System.Data.DbType)">
+            <summary>
+            Gets a list of comparison operatos and their respective text available for the comparison type.
+            </summary>
+            <returns>ComparisonOperator/Text dictionary.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetComparisonOperators(System.Type)">
+            <summary>
+            Gets a list of comparison operatos and their respective text available for the comparison type.
+            </summary>
+            <returns>ComparisonOperator/Text dictionary.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetEntityRegistrationInfo``1">
+            <summary>
+            Gets the entity registration information for the type provided.
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <returns>Registration info.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetPropertyDescriptor``1(System.String)">
+            <summary>
+            Gets a property descriptor from the registered entity.
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="propertyName">Property name</param>
+            <returns>Property descriptor</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.BuildEntitySortOrder``1(System.String,LoneWolf.Common.BackEnd.EntitySortDirection)">
+            <summary>
+            Gets a an entity sort order.
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="propertyName">Property name</param>
+            <param name="sortDirection">Sort direction</param>
+            <returns>Entity sort order instance.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.BuildSearchParameter``1(System.String,System.Object,LoneWolf.Common.BackEnd.ComparisonOperator,LoneWolf.Common.BackEnd.BooleanOperator)">
+            <summary>
+            Gets a search parameter.
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="propertyName">Property name</param>
+            <param name="value">Parameter value</param>
+            <param name="searchComparisonOperator">Comparison operator</param>
+            <param name="searchBooleanOperator">Boolean operator</param>
+            <returns>Search parameter instance.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.BuildParameter``1(System.String,System.Object,System.Data.ParameterDirection)">
+            <summary>
+            Gets a parameter.
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="propertyName">Property name</param>
+            <param name="value">Parameter value</param>
+            <param name="direction">Parameter direction</param>
+            <returns>Parameter instance.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetParameterValue``2(System.String,LoneWolf.Common.BackEnd.DataAccess.ParameterList)">
+            <summary>
+            Gets a parameter value.
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="TValue">Value type</typeparam>
+            <param name="propertyName">Property name</param>
+            <param name="parameters">Parameter list</param>
+            <returns>Parameter value</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetFieldValue``2(System.Data.IDataReader,System.String,LoneWolf.Common.BackEnd.FieldNotFoundBehavior)">
+            <summary>
+            Gets a field value from a IDataRecord.
+            </summary>
+            <typeparam name="TValue">Return value type.</typeparam>
+            <typeparam name="TEntity">Entity type.</typeparam>
+            <param name="dataReader">IDataReader to get the value.</param>
+            <param name="propertyName">Property name.</param>
+            <param name="notFoundBehavior">Action to take if the field is not found.</param>
+            <returns>Field value.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.AddIfNotExists``1(System.Collections.Generic.List{``0},``0)">
+            <summary>
+            Adds a value to a list only if the value doesn't already belong to the list.
+            </summary>
+            <typeparam name="T">Value type.</typeparam>
+            <param name="list">List to add the value.</param>
+            <param name="value">Value to add.</param>
+            <returns>True if added, otherwise false.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.AddIfNotExists``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
+            <summary>
+            Adds values from a list to another list only if they don't already belong to the list.
+            </summary>
+            <typeparam name="T">Value type.</typeparam>
+            <param name="list">List to add the value.</param>
+            <param name="values">Values to add.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetConnectionStringValue``1(System.String,System.String)">
+            <summary>
+            Gets a connection string value.
+            </summary>
+            <typeparam name="T">Value type</typeparam>
+            <param name="connectionString">Connection string.</param>
+            <param name="keyword">Keyword.</param>
+            <returns>Value for keyword.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetPropertyMappedFieldName``1(System.String)">
+            <summary>
+            Gets field name mapped by a entity property
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="propertyName">Property name</param>
+            <returns>Property descriptor</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.CopyEntities``2(``0,``1)">
+            <summary>
+            Copies properties values from source object to target object.
+            </summary>
+            <typeparam name="TSource">Source Type</typeparam>
+            <typeparam name="TTarget">Target Target</typeparam>
+            <param name="source">Source</param>
+            <param name="target">Target</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.GetComparison``1(System.String,LoneWolf.Common.BackEnd.EntitySortDirection)">
+            <summary>
+            Gets a generic comparison delegate, based on property name and sort direction.
+            </summary>
+            <typeparam name="T">Entity type for comparison delegate.</typeparam>
+            <param name="propertyName">Property used to sort.</param>
+            <param name="sortDirection">Sort direction for the delegate.</param>
+            <returns>Generic comparison delegate.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.Utils.SortList``1(System.Collections.Generic.List{``0},System.String,LoneWolf.Common.BackEnd.EntitySortDirection)">
+            <summary>
+            Sorts a list of entities, based on property name and sort direction.
+            </summary>
+            <typeparam name="T">Entity type for comparison delegate.</typeparam>
+            <param name="source">List to sort.</param>
+            <param name="propertyName">Property used to sort.</param>
+            <param name="sortDirection">Sort direction for the delegate.</param>
+            <returns>Generic comparison delegate.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult">
+            <summary>
+            Custom entity validation result.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult.#ctor(System.String,LoneWolf.Common.BackEnd.Entities.EntityBase,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="message">Validation Message.</param>
+            <param name="target">Entity Validated.</param>
+            <param name="key">Validation Key.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult.op_Implicit(LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult)~Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResult">
+            <summary>
+            Operator overload to convert a custom validation result into a 
+            </summary>
+            <param name="customResult"></param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult.Message">
+            <summary>
+            Validation Message.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult.Target">
+            <summary>
+            Entity Validated.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BackEnd.EntityValidation.CustomValidationResult.Key">
+            <summary>
+            Validation Key.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BackEnd.EntityValidation.ValidationHelper">
+            <summary>
+            Entity validation helper class.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.EntityValidation.ValidationHelper.GetFriendlyMessage(LoneWolf.Common.BackEnd.Exceptions.PropertyValidationException)">
+            <summary>
+            Gets a user-friendly message based on entity validation exception;
+            </summary>
+            <param name="validationException">Validation exception to parse.</param>
+            <returns>String containing validation messages.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BackEnd.EntityValidation.ValidationHelper.GetFriendlyMessage(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults)">
+            <summary>
+            Gets a user-friendly message based on entity validation results;
+            </summary>
+            <param name="results">Results to parse.</param>
+            <returns>String containing validation messages.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`2">
+            <summary>
+            Main container for all responses from the API that return content.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1">
+            <summary>
+            Main container for all responses from the API that do not have return content. This class can
+            also be used for the responses that do not contain Json deserializable contact. For instance, if
+            the response will be a pdf file, then we can't use the Json deserializer to get the PDF file.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1.#ctor(LoneWolf.Common.WebApi.Rest.CommonRestResponse)">
+            <summary>
+            Creates a CommonResourceResponse for the given CommonRestResponse.
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1.Deserialize``1(LoneWolf.Common.WebApi.Rest.CommonRestResponse)">
+            <summary>
+            Desirializes the response content according to the ContentType.
+            </summary>
+            <param name="response">The response to deserialize.</param>
+            <typeparam name="T">The type of object to deserialize to</typeparam>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1.Success">
+            <summary>
+            True if the API call was a success. This includes both HTTP Ok (200) and HTTP Created (201)
+            status codes.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1.StatusCode">
+            <summary>
+            The HTTP Status code of the response.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1.ErrorContent">
+            <summary>
+            The content of the body for an API call that resulted in an error.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`1.Response">
+            <summary>
+            Access to the more detailed response.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`2.#ctor(LoneWolf.Common.WebApi.Rest.CommonRestResponse)">
+            <summary>
+            Creates a CommonResourceResponse for the give CommonRestResponse.
+            </summary>
+            <param name="detailedResponse">The <see cref="T:LoneWolf.Common.WebApi.Rest.CommonRestResponse"/> to create this response from.</param>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonResourceResponse`2.Content">
+            <summary>
+            The content of the body for a successful API call.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApi.Rest.CommonRestClient">
+            <summary>
+            Holds default RESTful client side calls. Right now, this is basically a wrapper for RestSharp
+            but doing this easily allows us to change our underlying REST calls without having to modify
+            existing code that reference it.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestClient.#ctor(System.String)">
+            <summary>
+            Creates a connection to the Lone Wolf API using the specified parameters.
+            </summary>
+            <param name="url">The url for the API.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestClient.OnBeforeExecute(LoneWolf.Common.WebApi.Rest.CommonRestRequest)">
+            <summary>
+            Used to allow an overriding class to handle any actions before actual execution of the request.
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestClient.CreateRequest(System.String,LoneWolf.Common.WebApi.Rest.Method,System.Object)">
+            <summary>
+            Creates a <see cref="T:LoneWolf.Common.WebApi.Rest.CommonRestRequest"/> object.
+            </summary>
+            <param name="resource">The resource uri to call.</param>
+            <param name="method">The Http method to use.</param>
+            <param name="requestObject">Optional. The object to add to the body of the request.</param>
+            <returns>A <see cref="T:LoneWolf.Common.WebApi.Rest.CommonRestRequest"/> object.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestClient.Execute(LoneWolf.Common.WebApi.Rest.CommonRestRequest)">
+            <summary>
+            Performs the REST request.
+            </summary>
+            <param name="request">The request to perform.</param>
+            <returns>A <see cref="T:LoneWolf.Common.WebApi.Rest.CommonRestResponse"/>.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestClient.Log">
+            <summary>
+            Access to the CommonLogger.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestClient.UserAgent">
+            <summary>
+            Allows an overriding class to change the user agent that will be sent in all requests.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApi.Rest.CommonRestRequest">
+            <summary>
+            Used for created REST requests.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.#ctor(System.String,LoneWolf.Common.WebApi.Rest.Method)">
+            <summary>
+            Creates a REST request for the given resource and HTTP method.
+            </summary>
+            <param name="resource"></param>
+            <param name="method"></param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.AddHeader(System.String,System.String)">
+            <summary>
+            Adds a header to the request.
+            </summary>
+            <param name="name">The name of the header.</param>
+            <param name="value">The value of the header.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.GetHeader(System.String)">
+            <summary>
+            Returns the value of the specified header.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.AddParameter(System.String,System.Object)">
+            <summary>
+            Adds a parameter to the request. For GET requests, this will end up in the query string. For POST requests,
+            this will end up in the body.
+            </summary>
+            <param name="name">The name of the parameter.</param>
+            <param name="value">The value of the parameter.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.SetParameter(System.String,System.Object)">
+            <summary>
+            Sets a parameter in the request. If the parameter does not exist, then it will be added. If it does exist,
+            then its value will be updated.
+            </summary>
+            <param name="name">The name of the parameter.</param>
+            <param name="value">The value of the parameter.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.RemoveParameter(System.String)">
+            <summary>
+            Removes a parameter from the request.
+            </summary>
+            <param name="name">The name of the parameter to remove.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.AddBody(System.Object)">
+            <summary>
+            Adds an object to the request body. This object will be serialized according to the serializer chosen for
+            the CommonRestRequest. Currently, this is always set to be Json.
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.AddFile(System.String,System.String)">
+            <summary>
+            Adds a file to the request making this a multipart request.
+            </summary>
+            <param name="name">The name of the parameter for the file.</param>
+            <param name="filePath">The full path to the file.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.AddFile(System.String,System.Byte[],System.String)">
+            <summary>
+            Adds a file to the request making this a multipart request.
+            </summary>
+            <param name="name">The name of the parameter for the file.</param>
+            <param name="fileBytes">The byte array representing the file.</param>
+            <param name="fileName">The name to use for the file.</param>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.Resource">
+            <summary>
+            The resource uri for the request.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.Body">
+            <summary>
+            Returns the Body as a string. Use <see cref="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.AddBody(System.Object)"/> to add body content.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.Method">
+            <summary>
+            The HTTP Method for the request.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.#ctor">
+            <summary>
+            Default serializer
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.#ctor(Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Default serializer with overload for allowing custom Json.NET settings
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.Serialize(System.Object)" -->
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.DateFormat">
+            <summary>
+            Unused for JSON Serialization
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.RootElement">
+            <summary>
+            Unused for JSON Serialization
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.Namespace">
+            <summary>
+            Unused for JSON Serialization
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestRequest.InternalJsonSerializer.ContentType">
+            <summary>
+            Content type for serialized content
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApi.Rest.CommonRestResponse">
+            <summary>
+            Class that will be returned by all calls to CommonRestClient.Execute.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.Content">
+            <summary>
+            The Content of the response as a string.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.ContentEncoding">
+            <summary>
+            The encoding of the response.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.ContentLength">
+            <summary>
+            The length of the response content.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.ContentType">
+            <summary>
+            The type of the response content.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.ErrorMessage">
+            <summary>
+            The error message of the response.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.ErrorException">
+            <summary>
+            The exception of the response.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.RawBytes">
+            <summary>
+            The raw bytes of the content of the response.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.StatusCode">
+            <summary>
+            The <see cref="T:System.Net.HttpStatusCode"/> of the response.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.StatusDescription">
+            <summary>
+            The description of the status.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApi.Rest.CommonRestResponse.Headers">
+            <summary>
+            The response headers.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,467 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.WebApp</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.WebApp.WebControl.ControlStateInput">
+            <summary>
+            Creates a hidden input that is used to store control state information. See ClientLabel or ClientPanel for
+            an example.
+             
+            It generates the markup with the autocomplete="off" attribute so that the hidden input values are not
+            remembered between page reloads.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.Control.CommonUserControl">
+            <summary>
+            Base class for common user controls.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonUserControl.SetNextTabIndex(System.Web.UI.WebControls.WebControl)">
+            <summary>
+            Sets the next tab index for the control passed in provided StartTabIndex has been set to a number greater than -1.
+            </summary>
+            <param name="webControl">The control to set the next tab index for.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonUserControl.RegisterClientSideControlJavaScript(System.Type)">
+            <summary>
+            Registers the controls client side object script file. Either the ClientScriptURL or the ClientScriptResourceName
+            property must be set for this to have any effect. If both are specified, the ClientScriptResourceName takes precedence.
+            </summary>
+            <param name="controlType">
+            Optional. The type of control that is being registered. Default is whatever is returned from GetType().
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonUserControl.GetControlClientId(System.Web.UI.Control)">
+            <summary>
+            Convenience method to access CommonPage.GetControlClientId.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonUserControl.FocusControl(System.Web.UI.Control)">
+            <summary>
+            Convenience method to access CommonPage.FocusControl.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonUserControl.GetRequestObject``1(System.String)">
+            <summary>
+            Convenience method to access CommonPage.GetRequestObject.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonUserControl.SetRequestObject(System.String,System.Object)">
+            <summary>
+            Convenience method to access CommonPage.SetRequestObject.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.CommonPage">
+            <summary>
+            Returns the current page as type CommonPage. If the page is not of type CommonPage, then null is returned.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.ReadOnly">
+            <summary>
+            The read only status of this control. The status is saved in the ViewState.
+            
+            The default is False.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.ClientInstanceName">
+            <summary>
+            This is the name of the instance of the JavaScript client side control if it exists. If this is specified,
+            care needs to be taken that it is unique on the page.
+            
+            The default is ClientID.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.RequestSenderId">
+            <summary>
+            Convenience property to access CommonPage.RequestSenderId.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.RequestEventArgs">
+            <summary>
+            Convenience property to access CommonPage.RequestEventArgs.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.StartTabIndex">
+            <summary>
+            The tab index to start setting controls within this UserControl with.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonUserControl.NextTabIndex">
+            <summary>
+            Holds the next available tab index after all the controls on this UserControl have been set. All controls must
+            have their tab index set by using SetNextTabIndex for this value to be accurate.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.Control.CommonWebControl">
+            <summary>
+            Base class for common user controls.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.OnCommonWebControlLoad(System.EventArgs)">
+            <summary>
+            Called every time the control is loaded.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.SetNextTabIndex(System.Web.UI.WebControls.WebControl)">
+            <summary>
+            Sets the next tab index for the control passed in provided StartTabIndex has been set to a number greater than -1.
+            </summary>
+            <param name="webControl">The control to set the next tab index for.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.RegisterClientSideControlJavaScript(System.Type)">
+            <summary>
+            Registers the controls client side object script file. Either the ClientScriptURL or the ClientScriptResourceName
+            property must be set for this to have any effect. If both are specified, the ClientScriptResourceName takes precedence.
+            </summary>
+            <param name="controlType">
+            Optional. The type of control that is being registered. Default is whatever is returned from GetType().
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.GetControlClientId(System.Web.UI.Control)">
+            <summary>
+            Convenience method to access CommonPage.GetControlClientId.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.FocusControl(System.Web.UI.Control)">
+            <summary>
+            Convenience method to access CommonPage.FocusControl.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.GetRequestObject``1(System.String)">
+            <summary>
+            Convenience method to access CommonPage.GetRequestObject.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Control.CommonWebControl.SetRequestObject(System.String,System.Object)">
+            <summary>
+            Convenience method to access CommonPage.SetRequestObject.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.CommonPage">
+            <summary>
+            Returns the current page as type CommonPage. If the page is not of type CommonPage, then null is returned.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.ReadOnly">
+            <summary>
+            The read only status of this control. The status is saved in the ViewState.
+            
+            The default is False.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.ClientInstanceName">
+            <summary>
+            This is the name of the instance of the JavaScript client side control if it exists. If this is specified,
+            care needs to be taken that it is unique on the page.
+            
+            The default is ClientID.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.RequestSenderId">
+            <summary>
+            Convenience property to access CommonPage.RequestSenderId.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.RequestEventArgs">
+            <summary>
+            Convenience property to access CommonPage.RequestEventArgs.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.StartTabIndex">
+            <summary>
+            The tab index to start setting controls within this UserControl with.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Control.CommonWebControl.NextTabIndex">
+            <summary>
+            Holds the next available tab index after all the controls on this UserControl have been set. All controls must
+            have their tab index set by using SetNextTabIndex for this value to be accurate.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.Page.CommonPage">
+            <summary>
+            Base class holding common Page properties and methods.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Page.CommonPage.GetControlClientId(System.Web.UI.Control)">
+            <summary>
+            Returns the client id for the specified control. This can be overridden in the sub class
+            to handle any other ways that a controls client id can be returned.
+            </summary>
+            <param name="control">The control to get the client id for.</param>
+            <returns>A string holding the client id for the control passed in.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Page.CommonPage.FocusControl(System.Web.UI.Control)">
+            <summary>
+            Sets focus to the specified control when the page is finished processing. This can be overridden
+            in the sub class if focus should be set in a different way.
+            </summary>
+            <param name="controlToFocus">The control to set the focus too.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Page.CommonPage.GetRequestObject``1(System.String)">
+            <summary>
+            Returns an object of the specified type from the Context.Items Dictionary. This Dictionary can be used
+            to pass objects around to controls and pages during a request.
+            </summary>
+            <typeparam name="T">The type of object to get.</typeparam>
+            <param name="key">The key for the dictionary.</param>
+            <returns>The object of the specified type if it exists. If it doesn't exist, null is returned.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Page.CommonPage.SetRequestObject(System.String,System.Object)">
+            <summary>
+            Sets an object to the Context.Items Dictionary for the specified key. This Dictionary can be used to pass
+            around objects to controls and other pages during a request.
+            </summary>
+            <param name="key">The key of the object to save.</param>
+            <param name="o">The object to save.</param>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.Page.CommonPage.RegisterCommonJavaScript(System.Web.UI.Page)">
+            <summary>
+            Registers the Common.js JavaScript for use on the page.
+            </summary>
+            <param name="page">The reference to the page object that is doing the registering.</param>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Page.CommonPage.RequestSenderId">
+            <summary>
+            Convenience property that returns the id of the object that sent this request. This is typically contained
+            in the __EVENTTARGET request parameter.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.Page.CommonPage.RequestEventArgs">
+            <summary>
+            Convenience property that returns the event argument for this request. This is typically contained in the
+            __EVENTARGUMENT request parameter.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.WebControl.ClientLabel">
+            <summary>
+            A lable that can be modified using client side JavaScript. It will automatically retain its values during postbacks.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.WebControl.ClientLabel.#ctor">
+            <summary>
+            Creates a ClientLabel instance.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.WebControl.ClientLabel.RegisterJavaScript">
+            <summary>
+            Allows outside pages or controls to force the client side JavaScript to be registered after a postback. This
+            function will be called automatically during the OnPreRender event if it is not called before hand.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientLabel.Required">
+            <summary>
+            Flag for marking the label as required
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientLabel.RequiredCssClass">
+            <summary>
+            The class to use for the generated span element for the required asterick. This will default to
+            'required_field' if this is not specified. So you can either specify the class you want to use or
+            just add a class called 'required_field' to your style sheets.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientLabel.Text">
+            <summary>
+            The text of the label.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.WebControl.ClientPanel">
+            <summary>
+            A panel that can be shown and hidden using client side JavaScript.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.WebControl.ClientPanel.#ctor">
+            <summary>
+            Creates a ClientPanel instance.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.WebControl.ClientPanel.RegisterJavaScript">
+            <summary>
+            Allows outside pages or controls to force the client side JavaScript to be registered after a postback. This
+            function will be called automatically during the OnPreRender event if it is not called before hand.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientPanel.ContentTemplate">
+            <summary>
+            Holds the markup for the inside of the ClientPanel div.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientPanel.Effect">
+            <summary>
+            The effect to use when the ClientPanel is shown or hidden.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientPanel.EffectDuration">
+            <summary>
+            The amount of time in milliseconds that the Effect will last. This value is valid for all effects except None.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientPanel.ClientVisible">
+            <summary>
+            Flag holding whether the ClienPanel div is visible or not to begin with.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientPanel.CssClass">
+            <summary>
+            The CSS class for the ClientPanel div.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.ClientPanel.FocusControlId">
+            <summary>
+            The unique control id of the control to set focus too when the ClientPanel div becomes visible.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.WebControl.ClientPanel.ClientPanelEffect">
+            <summary>
+            Enum for different types of effects when the div is shown or hidden.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.WebApp.WebControl.NumericTextBox">
+            <summary>
+            Allows for numeric only text entry into a text box. The text box will be formatted according to the
+            settings specified.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.WebControl.NumericTextBox.#ctor">
+            <summary>
+            Creates a NumericTextBox instance.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.WebApp.WebControl.NumericTextBox.RegisterJavaScript">
+            <summary>
+            Registers the client side javascript for this control. It will only be run once per request.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.DecimalPlaces">
+            <summary>
+            The number of decimal places to allow in the text box.
+            
+            The default is 0.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.ForceDecimalPlaces">
+            <summary>
+            Whether or not to force the number of decimal places to be shown in the text box. For example, when true
+            and DecimalPlaces is set to 3, then the number 3.2 will display as 3.200 in the text box. When this is false
+            and DecimalPlaces is set to 3, then the number 3.200 will display as 3.2 in the text box.
+            
+            The default is True.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.AllowBlank">
+            <summary>
+            Flag to allow the text box to be blank. When the text box is blank, the Value property can be null when returned.
+            Otherwise, it is gauranteed to not be null.
+            
+            The default is False.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.AllowNegative">
+            <summary>
+            Flag to allow negative values in the text box.
+            
+            The default is True.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.UseNumberGroupSeparator">
+            <summary>
+            Flag to use the number group separator (a comma for us) when formatting for the text box. This number group
+            separator is specified by CultureInfo.CurrentCulture.
+            
+            For example, when true, the number 123456.67 will be displayed as 123,456.67 in the text box.
+            
+            The default is True.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.PercentageMode">
+            <summary>
+            Flag to tell this control to work in percentages. When true, the Value property should be set using the decimal
+            equivalent of the percentage to display. For example, to display 10, you would specify .01. Likewise, when true,
+            the Value property is returned as the decimal equivalent of the percent. For example, if the text box is displaying
+            25.45, then .2545 will be returned.
+            
+            The default is False.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.NumberFormatInfo">
+            <summary>
+            The NumberFormatInfo object for the culture for the display of the numbers.
+            
+            The default is CultureInfo.CurrentCulture.NumberFormat.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.NumberTextBoxClientID">
+            <summary>
+            The ClientID of the underlying text box.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.Text">
+            <summary>
+            The actual text in the text box. Use Value, DoubleValue or IntValue to set the text.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.TextAlign">
+            <summary>
+            The alignment of the text in the box.
+            
+            The default is Right.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.CssClass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.MaxLength">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.Enabled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.AutoPostBack">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.OnClientChange">
+            <summary>
+            Used to specify the JavaScript to call when the value in the text box changes. This JavaScript is gauranteed to run after
+            the value has already been formatted in the text box.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.Value">
+            <summary>
+            Gets and sets the value to display in the text box.
+            
+            If PercentageMode is true, then this value should be specified as the decimal equivalent to the percentage.
+            For example,10% should be specified as .01. Likewise, if PercentageMode is true, this value will be returned as
+            the decimal equivalent of the percentage. For example, if the text box is showing 10, then .01 will be returned.
+            
+            The client side object's functions for SetValue and GetValue work the same way.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.DoubleValue">
+            <summary>
+            Convenience property to get/set the value using a double.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.WebApp.WebControl.NumericTextBox.IntValue">
+            <summary>
+            Convenience property to get/set the value as an int.
+            </summary>
+        </member>
+        <member name="E:LoneWolf.Common.WebApp.WebControl.NumericTextBox.TextChanged">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

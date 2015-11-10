@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.Image</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.Image.CommonImage">
+            <summary>
+            Allows common functions to be performed on a System.Drawing.Image object.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.#ctor(System.String)">
+            <summary>
+            Constructs a CommonImage object from the specified image file.
+            </summary>
+            <param name="filePath">The path to the image file.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.#ctor(System.IO.Stream)">
+            <summary>
+            Constructs a CommonImage object from the specified stream.
+            </summary>
+            <param name="stream">The stream holding the image data.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.#ctor">
+            <summary>
+            Creates an CommonImage object. This is mainly used to allow for functionality where an
+            empty constructor is required. LoadFromFile, LoadFromStream or LoadFromImage should then
+            be called to load the image.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.#ctor(System.Drawing.Image)">
+            <summary>
+            Constructs a CommonImage object from the specified Image object.
+            </summary>
+            <param name="image">The System.Drawing.Image object.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.LoadFromFile(System.String)">
+            <summary>
+            Loads the specified image file into the underlying System.Drawing.Image object.
+            </summary>
+            <param name="filePath">The path to the image file.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.LoadFromStream(System.IO.Stream)">
+            <summary>
+            Loads the specified stream into the underlying System.Drawing.Image object.
+            </summary>
+            <param name="stream">The path to the image file.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.LoadFromImage(System.Drawing.Image)">
+            <summary>
+            Loads the specified System.Drawing.Image object into the underlying System.Drawing.Image object.
+            </summary>
+            <param name="image">The System.Drawing.Image object to use.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.CropAndResize(System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32,System.Int32,LoneWolf.Common.Image.CropAndResizeOptions)">
+            <summary>
+            Crops and resizes an image according to the dimensions specified.
+            
+            If the underlying System.Drawing.Image object fails the call to IsCroppable, then the cropped image is not
+            gauranteed to be compatible with the format of the original image. For instance, some GIF files cannot be
+            cropped in their raw state. This method will return a cropped image with a PixelFormat of Format32bppArgb.
+            
+            If the resizedWidth and resizedHeight dimensions are bigger than the width and height of the cropping
+            rectangle, then the image returned will be the same dimensions as the cropping rectangle. In other words,
+            the image will not be blown up to fit the specified resized dimensions.
+            
+            The width and height parameters are passed by reference. So after this function call, their values will be 
+            changed to the actual values of the width and height of the rectangle used for cropping. These can change if the 
+            cropping rectangle passed in is not the exact same ratio as the the ratio specified by resizedWidth and
+            resizedHeight. The cropping rectangle will be adjusted to be the same ratio.
+            </summary>
+            <param name="left">The left coordinate on the image to use for the crop.</param>
+            <param name="top">The top coordinate on the image to use for the crop.</param>
+            <param name="width">The width of the cropping rectangle. Pass in 0 to use the entire image width.</param>
+            <param name="height">The height of the cropping rectangle. Pass in 0 to use the entire image height.</param>
+            <param name="resizedWidth">The width of the resized image. Pass in 0 to use the width of the cropping rectangle.</param>
+            <param name="resizedHeight">The height of the resized image. Pass in 0 to use the height of the cropping rectangle.</param>
+            <param name="options">The options for the crop and resize process.</param>
+            <returns>A System.Drawing.Image object that represents the cropped image.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.CropAndResizeToFile(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,LoneWolf.Common.Image.CropAndResizeOptions,System.String)">
+            <summary>
+            Crops and resizes an image according to the dimensions specified. If the image cannot be cropped in it's current file format,
+            then the cropped image will be of type ImageFormat.Png. Otherwise, the cropped image will be the same type as the original
+            image.
+            
+            See CropAndResize for more details.
+            </summary>
+            <param name="left">The left coordinate on the image to use for the crop.</param>
+            <param name="top">The top coordinate on the image to use for the crop.</param>
+            <param name="width">The width of the cropping rectangle. Pass in 0 to use the entire image width.</param>
+            <param name="height">The height of the cropping rectangle. Pass in 0 to use the entire image height.</param>
+            <param name="resizedWidth">The width of the resized image. Pass in 0 to use the width of the cropping rectangle.</param>
+            <param name="resizedHeight">The height of the resized image. Pass in 0 to use the height of the cropping rectangle.</param>
+            <param name="options">The options for the crop and resize process.</param>
+            <param name="croppedImageFilePath">The path to the file to store the cropped image as.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.IsCroppable">
+            <summary>
+            Returns true if the current images pixel format can be used in the CropAndResize method call.
+            </summary>
+            <returns>True if the current images pixel format can be used in the CropAndResize method call.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.Crop(System.Int32,System.Int32,System.Int32,System.Int32,LoneWolf.Common.Image.CropAndResizeOptions)">
+            <summary>
+            Crops an image according to the dimensions specified.
+            
+            If the underlying System.Drawing.Image object fails the call to IsCroppable, then the cropped image is not
+            guaranteed to be compatible with the format of the original image. For instance, some GIF files cannot be
+            cropped in their raw state. This method will return a cropped image with a PixelFormat of Format32bppArgb.
+            </summary>
+            <param name="left">The left coordinate on the image to use for the crop.</param>
+            <param name="top">The top coordinate on the image to use for the crop.</param>
+            <param name="width">The width of the cropping rectangle. Pass in 0 to use the entire image width.</param>
+            <param name="height">The height of the cropping rectangle. Pass in 0 to use the entire image height.</param>
+            <param name="options">The options for the crop and resize process.</param>
+            <returns>A System.Drawing.Image object that represents the cropped image.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.CropToFile(System.Int32,System.Int32,System.Int32,System.Int32,LoneWolf.Common.Image.CropAndResizeOptions,System.String)">
+            <summary>
+            Crops an image according to the dimensions specified. If the image cannot be cropped in it's current file format,
+            then the cropped image will be of type ImageFormat.Png. Otherwise, the cropped image will be the same type as the original
+            image.
+            
+            See Crop for more details.
+            </summary>
+            <param name="left">The left coordinate on the image to use for the crop.</param>
+            <param name="top">The top coordinate on the image to use for the crop.</param>
+            <param name="width">The width of the cropping rectangle. Pass in 0 to use the entire image width.</param>
+            <param name="height">The height of the cropping rectangle. Pass in 0 to use the entire image height.</param>
+            <param name="options">The options for the crop and resize process.</param>
+            <param name="croppedImageFilePath">The path to the file to store the cropped image as.</param>
+            <returns>A System.Drawing.Image object that represents the cropped image.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.Resize(System.Int32,System.Int32,LoneWolf.Common.Image.CropAndResizeOptions)">
+            <summary>
+            Resizes an image according to the dimensions specified.
+            
+            If the underlying System.Drawing.Image object fails the call to IsCroppable, then the resized image is not
+            guaranteed to be compatible with the format of the original image. For instance, some GIF files cannot be
+            resized in their raw state. This method will return a resized image with a PixelFormat of Format32bppArgb.
+            
+            If the resizedWidth and resizedHeight dimensions are bigger than the image width and height, then the
+            image returned will be the same dimensions as the image file. In other words, the image will not be blown
+            up to fit the specified resize dimensions.
+            </summary>
+            <param name="width">The width of the resized image.</param>
+            <param name="height">The height of the resized image.</param>
+            <param name="options">The options for the crop and resize process.</param>
+            <returns>A System.Drawing.Image object that represents the resized image.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.ResizeToFile(System.Int32,System.Int32,LoneWolf.Common.Image.CropAndResizeOptions,System.String)">
+            <summary>
+            Resizes an image according to the dimensions specified. If the image cannot be resized in it's current file format,
+            then the resized image will be of type ImageFormat.Png. Otherwise, the resized image will be the same type as the original
+            image.
+            
+            See Resize for more details.
+            </summary>
+            <param name="width">The width of the resized image.</param>
+            <param name="height">The height of the resized image.</param>
+            <param name="options">The options for the crop and resize process.</param>
+            <returns>A System.Drawing.Image object that represents the resized image.</returns>
+            /// <param name="resizedImageFilePath">The path to the file to store the resized image as.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.Save(System.String,System.Drawing.Imaging.ImageFormat,System.Nullable{System.Int32})">
+            <summary>
+            Saves the image to a file in the specified format with the specified quality.
+            </summary>
+            <param name="fileName">The file name to save the image too.</param>
+            <param name="imageFormat">The image format to save the image as.</param>
+            <param name="quality">
+            Optional. The quality of the image. The value can be from 0 to 100 where 100 is the best quality.
+            See <a href="http://msdn.microsoft.com/en-us/library/system.drawing.imaging.encoder.quality%28v=vs.100%29.aspx">System.Drawing.Imaging.Encoder.Quality</a>
+            for more information on this value. If the quality is not specified, then no quality parameter is applied.
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.Save(System.IO.Stream,System.Drawing.Imaging.ImageFormat,System.Nullable{System.Int32})">
+            <summary>
+            Saves the image to a stream in the specified format with the specified quality.
+            </summary>
+            <param name="stream">The stream to save the image too.</param>
+            <param name="imageFormat">The image format to save the image as.</param>
+            <param name="quality">
+            Optional. The quality of the image. The value can be from 0 to 100 where 100 is the best quality.
+            See <a href="http://msdn.microsoft.com/en-us/library/system.drawing.imaging.encoder.quality%28v=vs.100%29.aspx">System.Drawing.Imaging.Encoder.Quality</a>
+            for more information on this value. If the quality is not specified, then no quality parameter is applied.
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.Dispose">
+            <summary>
+            Releases the internal Image memory.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.IsPixelFormatCroppable(System.Drawing.Imaging.PixelFormat)">
+            <summary>
+            Returns true if the specified pixel format can correctly be used by the CropAndResize methods.
+            </summary>
+            <param name="pixelFormat">The PixelFormat to test.</param>
+            <returns>True if the specified pixel format can correctly be used by the CropAndResize methods.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.GetImageCodecInfo(System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Returns the image codec for the specified image format.
+            </summary>
+            <param name="imageFormat">The image format to get the codec for.</param>
+            <returns>The ImageCodecInfo object for the specified image format.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.GetMimeTypeFromImageFormat(System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Returns the MIME type for the specified ImageFormat.
+            </summary>
+            <param name="imageFormat">The ImageFormat to get the MIME type for.</param>
+            <returns>The MIME type for the specified ImageFormat.</returns>
+            <exception cref="T:System.IO.InvalidDataException">If the ImageFormat cannot be found.</exception>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.GetImageFormatFromMimeType(System.String)">
+            <summary>
+            Returns the ImageFormat for the specified MIME type.
+            </summary>
+            <param name="mimeType">The MIME type to get the ImageFormat for.</param>
+            <returns>The ImageFormat for the specified MIME type.</returns>
+            <exception cref="T:System.IO.InvalidDataException">If the MIME type cannot be found.</exception>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.GetDefaultFileExtensionForImageFormat(System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Returns the default file extension for an ImageFormat.
+            </summary>
+            <param name="imageFormat">The ImageFormat to get the default file extension for.</param>
+            <returns>The default file extension for an ImageFormat.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CommonImage.GetDefaultFileExtensionForMimeType(System.String)">
+            <summary>
+            Returns the default file extension for a MIME type.
+            </summary>
+            <param name="mimeType">The MIME type to get the default file extension for.</param>
+            <returns>The default file extension for a MIME type.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.Image.CommonImage.Image">
+            <summary>
+            The underlying System.Drawing.Image object for this class.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Image.CropAndResizeOptions">
+            <summary>
+            Holds information on how the CropAndResize function should handle certain situations.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Image.CropAndResizeOptions.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Image.CropAndResizeOptions.HorizontalResolution">
+            <summary>
+            The new horizontal resolution (DPI) for the image.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Image.CropAndResizeOptions.VerticalResolution">
+            <summary>
+            The new vertical resolution (DPI) for the image.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Image.CropAndResizeOptions.HorizontalAdjustment">
+            <summary>
+            The action to take horizontally when the cropping rectangle ratio passed in
+            does not match the specified new image size ratio.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Image.CropAndResizeOptions.VerticalAdjustment">
+            <summary>
+            The action to take vertically when the cropping rectangle ratio passed in
+            does not match the specified new image size ratio.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Image.HorizontalAdjustment">
+            <summary>
+            Flags for how to handle differing cropped rectangle ratios vs the expected rectangle ratio.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.HorizontalAdjustment.None">
+            <summary>
+            Does no adjustment on the cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.HorizontalAdjustment.Center">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but moves the left coordinate
+            to the right so that the cropping rectangle is in the center of the passed in cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.HorizontalAdjustment.Left">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but moves the right coordinate
+            to the left so that the cropping rectangle is at the left of the passed in cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.HorizontalAdjustment.Right">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but moves the left coordinate
+            to the right so that the cropping rectangle is at the right of the passed in cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.HorizontalAdjustment.MoveBottom">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but first moves the bottom coordinate
+            down so that the cropping rectangle is higher than the passed in rectangle. If the calculated bottom
+            is greater than the height of the image, then the height of the image is used and the bit for
+            Center, Left or Right is checked for how to handle the horizontal movement.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Image.VerticalAdjustment">
+            <summary>
+            Flags for how to handle differing cropped rectangle ratios vs the expected rectangle ratio.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.VerticalAdjustment.None">
+            <summary>
+            Does no adjustment on the cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.VerticalAdjustment.Center">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but moves the top coordinate
+            down so that the cropping rectangle is in the center of the passed in cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.VerticalAdjustment.Top">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but moves the bottom coordinate
+            up so that the cropping rectangle is at the top of the passed in cropping rectangle.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Image.VerticalAdjustment.Bottom">
+            <summary>
+            Adjusts the cropping rectangle to be the same ratio passed in but moves the top coordinate
+            down so that the cropping rectangle is at the bottom of the passed in cropping rectangle.
+            </summary>
+        </member>
+    </members>
+</doc>

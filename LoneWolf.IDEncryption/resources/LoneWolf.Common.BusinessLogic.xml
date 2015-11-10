@@ -1,0 +1,625 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.BusinessLogic</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.BusinessLogic.Manager.IManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.IManager.SetAuditValues(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="modifiedById"></param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.IManager.Validate">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.IManager.OnBeforeValidate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.IManager.OnAfterValidate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.IManager.OnBeforeSave(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.IManager.OnAfterSave(System.String)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.IManager.Validator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.IManager.SkipValidation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Manager.Manager`1">
+            <summary>
+            Base class for managers dealing with an IDbContext.
+            </summary>
+            <typeparam name="TContext"></typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.#ctor(LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork{`0},System.Boolean)">
+            <summary>
+            Sets the base class properties for a Manager.
+            </summary>
+            <param name="unitOfWork">The UnitOfWork the manager should work with.</param>
+            <param name="addToUnitOfWork">
+            Adds this manager to the UnitOfWork. When added, it is eligible for validation and pre and post processing
+            after the context has been saved. If it is not added, then it will not be validated.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="unitOfWork"/> is null.</exception>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.Assert(LoneWolf.Common.DataAccess.Context.ICommonEntity)">
+            <summary>
+            Asserts that the manager is not working on a null entity.
+            </summary>
+            <param name="entity">The entity to assert.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.AssertNotNull(LoneWolf.Common.DataAccess.Context.ICommonEntity)">
+            <summary>
+            Asserts that the entity passed into the manager is null.
+            </summary>
+            <param name="entity">The entity to assert.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.AssertFound(LoneWolf.Common.DataAccess.Context.ICommonEntity)">
+            <summary>
+            Asserts that the entity found by the manager is not null.
+            </summary>
+            <param name="entity">The entity to assert.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.AssertEntityState``1(LoneWolf.Common.DataAccess.Enums.CommonEntityState,LoneWolf.Common.DataAccess.Context.ICommonEntity)">
+            <summary>
+            Asserts that an entity has the given state.
+            </summary>
+            <typeparam name="TEntity">The type of entity.</typeparam>
+            <param name="entityState">The entity state to check for.</param>
+            <param name="entity">The entity to assert.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.AssertNotEntityState``1(LoneWolf.Common.DataAccess.Enums.CommonEntityState,LoneWolf.Common.DataAccess.Context.ICommonEntity)">
+            <summary>
+            Asserts that an entity does not have the given state.
+            </summary>
+            <typeparam name="TEntity">The type of entity.</typeparam>
+            <param name="entityState">The entity state to check for.</param>
+            <param name="entity">The entity to assert.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.SetAuditValues(System.String)">
+            <summary>
+            Called by the UnitOfWork when it is saved. This should set all audit values for all
+            properties associated with the entity the manager is managing. Even child enitites,
+            provided they have been loaded.
+            <br/>
+            **NOTE: Though public, this typically should not be called outside of the unit of work.
+            </summary>
+            <param name="modifiedById">The id that is doing the save.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.Validate">
+            <summary>
+            Called by the UnitOfWork to validate the entity and any loaded child entities that
+            this manager is managing.
+            <br />
+            **NOTE: Though public, typically this should not be called outside of the UnitOfWork
+            save function.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.OnBeforeValidate">
+            <summary>
+            A hook to allow extra processing for the manager before it starts validation.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.OnAfterValidate">
+            <summary>
+            A hook to allow extra processing for the manager after it has passed validation.
+            Care should be taken not to violate any validation rules in the this post processing.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.OnBeforeSave(System.String)">
+            <summary>
+            Hook to allow extra processing before the data has been saved. Care should be taken not
+            to violate any validation rules in the this post processing.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Manager.Manager`1.OnAfterSave(System.String)">
+            <summary>
+            Hook to allow extra processing after the data has been saved. This can be used when multiple
+            units of work are used to update multiple contexts.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.Manager`1.Work">
+            <summary>
+            Access to the UnitOfWork for this manager.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.Manager`1.Context">
+            <summary>
+            Access to the TContext for this manager.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.Manager`1.Log">
+            <summary>
+            Access to the CommonLogger for this manager.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.Manager`1.Validator">
+            <summary>
+            Access to the IValidator for the manager.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Manager.Manager`1.SkipValidation">
+            <summary>
+            Tells the UnitOfWork to not call the validate function for this manager.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.Find(System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="keyValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindAsync(System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="keyValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindAsync(System.Threading.CancellationToken,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="keyValues"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <param name="includePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <param name="includePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <param name="cancellationToken"></param>
+            <param name="includePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindNoTracking(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <param name="includePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindNoTrackingAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <param name="cancellationToken"></param>
+            <param name="includePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.FindNoTrackingAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <param name="includePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.Any(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            
+            </summary>
+            <param name="wherePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.AnyAsync(System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            
+            </summary>
+            <param name="cancellationToken"></param>
+            <param name="wherePredicate"></param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Query.ICommonQuery`1.Query">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1">
+            <summary>
+            Class to access common query functions for a given <see cref="T:LoneWolf.Common.DataAccess.Context.IDbContext"/>.
+            </summary>
+            <typeparam name="TEntity">Any class from the specified <see cref="T:LoneWolf.Common.DataAccess.Context.IDbContext"/>.</typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.#ctor(LoneWolf.Common.DataAccess.Context.IDbContext)">
+            <summary>
+            Creates a CommonQuery object for the specified IDbContext.
+            </summary>
+            <param name="context">The context to use for the Query object</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.Find(System.Object[])">
+            <summary>
+            Searches for the specified object by it's key values. If the object already exists in the context, that instance will be
+            returned and no database call is done.
+            </summary>
+            <param name="keyValues">The key value(s) for the object to find.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindAsync(System.Object[])">
+            <summary>
+            Searches for the specified object by it's key values. If the object already exists in the context, that instance will be
+            returned and no database call is done.
+            </summary>
+            <param name="keyValues">The key value(s) for the object to find.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindAsync(System.Threading.CancellationToken,System.Object[])">
+            <summary>
+            Searches for the specified object by it's key values. If the object already exists in the context, that instance will be
+            returned and no database call is done.
+            </summary>
+            <param name="cancellationToken"></param>
+            <param name="keyValues">The key value(s) for the object to find.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="cancellationToken">The cancellation token to use to cancel the task.</param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindNoTracking(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned. The object will not be tracked by the underlying context.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindNoTrackingAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned. The object will not be tracked by the underlying context.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.FindNoTrackingAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            Searches for an object by the passed in where predicate. If the where predicate returns more than one object, the first
+            object in the list will be returned. The object will not be tracked by the underlying context.
+            </summary>
+            <param name="wherePredicate">The where predicate to use for the search.</param>
+            <param name="cancellationToken"></param>
+            <param name="includePredicate">Optional: The navigation properties to include when the object is returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.Any(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Returns true if any values are found give the specified where predicate.
+            </summary>
+            <param name="wherePredicate">Optional: The where predicate to use in the query.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.AnyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Returns true if any values are found give the specified where predicate.
+            </summary>
+            <param name="wherePredicate">Optional: The where predicate to use in the query.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.AnyAsync(System.Threading.CancellationToken,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Returns true if any values are found give the specified where predicate.
+            </summary>
+            <param name="cancellationToken">The cancellation token to use to cancel the query.</param>
+            <param name="wherePredicate">Optional: The where predicate to use in the query.</param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.Context">
+            <summary>
+            Gives sub classes direct access to the context.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.Log">
+            <summary>
+            Access to the CommonLogger for this query.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Query.CommonQuery`1.Query">
+            <summary>
+            Returns an IQueryable instance that allows you to create your own custom queries.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Repository.FunctionRepository">
+            <summary>
+            Class to access common functions for a given <see cref="T:LoneWolf.Common.DataAccess.Context.IDbContext"/>.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Repository.FunctionRepository.#ctor(LoneWolf.Common.DataAccess.Context.IDbContext)">
+            <summary>
+            Creates a FunctionRepository object for the specified IDbContext.
+            </summary>
+            <param name="context">The context to use for the Query object</param>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Repository.FunctionRepository.Context">
+            <summary>
+            Gives sub classes direct access to the context.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Repository.FunctionRepository.Log">
+            <summary>
+            Access to the CommonLogger for this query.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Resources.SharedStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Resources.SharedStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Resources.SharedStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Resources.SharedStrings.ThingFailedValidation">
+            <summary>
+              Looks up a localized string similar to {0} failed validation..
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1">
+            <summary>
+            Provides a wrapper for a context so that it can be shared outside to the presentation layer
+            without giving it full control over the IDbContext.
+            </summary>
+            <typeparam name="TContext"></typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.#ctor">
+            <summary>
+            Creates a new UnitOfWork for the TContext.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.#ctor(`0)">
+            <summary>
+            Creates a new UnitOfWork for the specified TContext.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.Dispose(System.Boolean)">
+            <summary>
+            Allows the underlying context to be cleaned up.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.SaveContext">
+            <summary>
+            Calls <see cref="M:System.Data.Entity.DbContext.SaveChanges"/>. This can be overridden to perform
+            custom exception handling.
+            </summary>
+            <returns>The number of affected rows.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.SaveContextAsync">
+            <summary>
+            Calls <see cref="M:System.Data.Entity.DbContext.SaveChanges"/>. This can be overridden to perform
+            custom exception handling.
+            </summary>
+            <returns>The number of affected rows.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.SaveContextAsync(System.Threading.CancellationToken)">
+            <summary>
+            Calls <see cref="M:System.Data.Entity.DbContext.SaveChanges"/>. This can be overridden to perform
+            custom exception handling.
+            </summary>
+            <returns>The number of affected rows.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.Save(System.String)">
+            <summary>
+            Calls the save method for the underlying Context.
+            </summary>
+            <param name="modifiedById">
+            The id to pass to all the entities being saved for their audit columns.
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.SaveAsync(System.String)">
+            <summary>
+            Calls the save method for the underlying Context.
+            </summary>
+            <param name="modifiedById">
+            The id to pass to all the entities being saved for their audit columns.
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.SaveAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Calls the save method for the underlying Context.
+            </summary>
+            <param name="modifiedById">
+            The id to pass to all the entities being saved for their audit columns.
+            </param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.UnitOfWork.UnitOfWork`1.Log">
+            <summary>
+            Access to the CommonLogger.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Validation.IValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.IValidator.Validate(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.IValidator.EntityName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.IValidator.EntityDescription">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.IValidator.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.IValidator.Errors">
+            <summary>
+            The list of errors as a Read Only Collection
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.IValidator.PassedValidation">
+            <summary>
+            Flag that should be set after the Validate function has been called to tell the state of
+            the validator.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.BusinessLogic.Validation.Validator`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.Validator`1.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.Validator`1.OnValidate(`0)">
+            <summary>
+            Function that must be overridden to perform validation. This will only be called if the entity
+            being validated is NOT marked as deleted. If it is marked as deleted, the virtual function
+            OnValidateDeletion will be called instead.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.Validator`1.OnValidateDeletion(`0)">
+            <summary>
+            Should be overridden if the entity requires any validation done before it is deleted.
+            </summary>
+            <param name="entity">The entity to validate.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.Validator`1.Validate(System.Object)">
+            <summary>
+            Performs the validation on the entity.
+            </summary>
+            <param name="entity">The entity to validate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.Validator`1.AddError(System.String,System.Object[])">
+            <summary>
+            Adds an error to the validator. This function can be used in the same way that
+            String.Format is.
+            </summary>
+            <param name="error">The error to add. This can also hold a string to pass to String.Format.</param>
+            <param name="args">Optional. The arguments to pass to the String.Format function.</param>
+        </member>
+        <member name="M:LoneWolf.Common.BusinessLogic.Validation.Validator`1.AddErrors(System.Collections.Generic.ICollection{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="errors"></param>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.Validator`1.Log">
+            <summary>
+            Access to the CommonLogger.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.Validator`1.PassedValidation">
+            <summary>
+            True if the validator passed validation after the call to Validate.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.BusinessLogic.Validation.Validator`1.IsEntityNew">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C8981E38-2E08-41E0-89C3-5F753C91B455}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoneWolf.IDEncryption</RootNamespace>
+    <AssemblyName>LoneWolf.IDEncryption</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>resources\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common">
+      <HintPath>resources\LoneWolf.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.BackEnd">
+      <HintPath>resources\LoneWolf.Common.BackEnd.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.BusinessLogic">
+      <HintPath>resources\LoneWolf.Common.BusinessLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.Compression">
+      <HintPath>resources\LoneWolf.Common.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.DataAccess">
+      <HintPath>resources\LoneWolf.Common.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.Encryption">
+      <HintPath>resources\LoneWolf.Common.Encryption.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LoneWolf.Common.File">
+      <HintPath>resources\LoneWolf.Common.File.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.FrontEnd">
+      <HintPath>resources\LoneWolf.Common.FrontEnd.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.Image">
+      <HintPath>resources\LoneWolf.Common.Image.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.Logging">
+      <HintPath>resources\LoneWolf.Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.PDF">
+      <HintPath>resources\LoneWolf.Common.PDF.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.WebApi">
+      <HintPath>resources\LoneWolf.Common.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="LoneWolf.Common.WebApp">
+      <HintPath>resources\LoneWolf.Common.WebApp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

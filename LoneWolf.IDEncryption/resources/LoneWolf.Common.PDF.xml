@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.PDF</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.PDF.CommonPDF">
+            <summary>
+            Performs common, simple tasks on a PDF file. To get more detailed use out of PDF files, use the underlying PDF4NET API
+            directly.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.#cctor">
+            <summary>
+            Called the first time this class is loaded into memory. This will register the PDF4NET API.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.#ctor">
+            <summary>
+            Creates a CommonPDF object with no pages and with version 1.7.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.#ctor(System.String)">
+            <summary>
+            Creates a CommonPDF object from the specified file path.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a CommonPDF object from the specified Stream.
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.#ctor(System.Byte[])">
+            <summary>
+            Creates a CommonPDF object from the specified byte array.
+            </summary>
+            <param name="pdfBytes"></param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.AppendPDF(LoneWolf.Common.PDF.CommonPDF)">
+            <summary>
+            Appends all the pages in the PDF document passed in to the end of this PDF document.
+            </summary>
+            <param name="pdfToAppend">The PDF document to append to the end of this PDF document.</param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.AppendPDF(System.Byte[])">
+            <summary>
+            Appends the PDF document created from the byte array passed in to this document.
+            </summary>
+            <param name="bytes">The byte array containing the PDF file to append.</param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.ExtractPage(System.Int32)">
+            <summary>
+            Returns a CommonPDF object for the page to be extracted. The pageNumber attribute is the actual page number,
+            NOT the zero based index of the page. For example, to extract page 2, pass in 2 for the pageNumber.
+            </summary>
+            <param name="pageNumber">The page number to extract.</param>
+            <returns>A CommonPDF object representing the extracted page.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.Save(System.IO.Stream,System.Boolean)">
+            <summary>
+            Saves the PDF document to a stream.
+            </summary>
+            <param name="stream">The stream to save the PDF document too.</param>
+            <param name="fastWebView">Optional. Flag to save the PDF document for fast web viewing. Default is False.</param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.Save(System.String,System.Boolean)">
+            <summary>
+            Saves the PDF file to a file.
+            </summary>
+            <param name="filePath">The full path and filename of the file to save the PDF document too.</param>
+            <param name="fastWebView">Optional. Flag to save the PDF document for fast web viewing. Default is False.</param>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.IsValidPDF(System.String)">
+            <summary>
+            Returns true if the file path represents a valid PDF file.
+            </summary>
+            <param name="filePath">The full path to the file to test.</param>
+            <returns>True if the stream represents a valid PDF file.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.IsValidPDF(System.Byte[])">
+            <summary>
+            Returns true if the byte array represents a valid PDF file.
+            </summary>
+            <param name="bytes">The byte array to test.</param>
+            <returns>True if the stream represents a valid PDF file.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.IsValidPDF(System.IO.Stream)">
+            <summary>
+            Returns true if the stream represents a valid PDF file.
+            </summary>
+            <param name="stream">The stream to test.</param>
+            <returns>True if the stream represents a valid PDF file.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.PDF.CommonPDF.FromURL(System.String)">
+            <summary>
+            Attempts to download the PDF at the specified url.
+            </summary>
+            <param name="url">The full URL of the pdf to download.</param>
+            <returns>A <see cref="T:LoneWolf.Common.PDF.CommonPDF"/> object of the PDF that was downloaded.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.PDF.CommonPDF.Document">
+            <summary>
+            Gives access to the underlying PDFDocument object.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.PDF.CommonPDF.NumPages">
+            <summary>
+            Shortcut to get the number of pages in the PDF document.
+            </summary>
+        </member>
+    </members>
+</doc>

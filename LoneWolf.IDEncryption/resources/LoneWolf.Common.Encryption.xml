@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common.Encryption</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.Encryption.Helpers.EncryptionHelper">
+            <summary>
+            Holds encryption helper methods.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetSHA1Hash(System.String)">
+            <summary>
+            Returns the SHA1 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the SHA1 hash for.</param>
+            <returns>The SHA1 hash for <paramref name="inputString"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetSHA256Hash(System.String)">
+            <summary>
+            Returns the SHA256 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the SHA256 hash for.</param>
+            <returns>The SHA256 hash for <paramref name="inputString"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetSHA384Hash(System.String)">
+            <summary>
+            Returns the SHA384 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the SHA384 hash for.</param>
+            <returns>The SHA384 hash for <paramref name="inputString"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetSHA512Hash(System.String)">
+            <summary>
+            Returns the SHA512 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the SHA512 hash for.</param>
+            <returns>The SHA512 hash for <paramref name="inputString"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetMD5Hash(System.String)">
+            <summary>
+            Returns the MD5 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the MD5 hash for.</param>
+            <returns>The MD5 hash for <paramref name="inputString"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetRIPEMD160Hash(System.String)">
+            <summary>
+            Returns the RIPEMD160 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the RIPEMD160 hash for.</param>
+            <returns>The RIPEMD160  hash for <paramref name="inputString"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetHMACSHA1Hash(System.String,System.String)">
+            <summary>
+            Returns the HMACSHA1 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the HMACSHA1 hash for.</param>
+            <param name="key">The key to seed the hash with.</param>
+            <returns>The HMACSHA1 hash for <paramref name="inputString"/> and <paramref name="key"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetHMACSHA256Hash(System.String,System.String)">
+            <summary>
+            Returns the HMACSHA256 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the HMACSHA256 hash for.</param>
+            <param name="key">The key to seed the hash with.</param>
+            <returns>The HMACSHA256 hash for <paramref name="inputString"/> and <paramref name="key"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetHMACSHA384Hash(System.String,System.String)">
+            <summary>
+            Returns the HMACSHA384 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the HMACSHA384 hash for.</param>
+            <param name="key">The key to seed the hash with.</param>
+            <returns>The HMACSHA384 hash for <paramref name="inputString"/> and <paramref name="key"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetHMACSHA512Hash(System.String,System.String)">
+            <summary>
+            Returns the HMACSHA512 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the HMACSHA512 hash for.</param>
+            <param name="key">The key to seed the hash with.</param>
+            <returns>The HMACSHA512 hash for <paramref name="inputString"/> and <paramref name="key"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.GetHMACMD5Hash(System.String,System.String)">
+            <summary>
+            Returns the HMACMD5 hash string for the given <paramref name="inputString"/>. The input string
+            is expected to be in UTF8 encoding.
+            </summary>
+            <param name="inputString">The string to get the HMACMD5 hash for.</param>
+            <param name="key">The key to seed the hash with.</param>
+            <returns>The HMACMD5 hash for <paramref name="inputString"/> and <paramref name="key"/>.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Encrypt``1(``0)">
+            <summary>
+            Encrypts an integer value.
+            </summary>
+            <param name="value">Integer to encrypt.</param>
+            <returns>string representing the encrypted integer.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Encrypt``1(``0,System.String)">
+            <summary>
+            Encrypts an integer value.
+            </summary>
+            <param name="value">Integer to encrypt.</param>
+            <param name="salt">The salt to use for the encryption.</param>
+            <returns>string representing the encrypted integer.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Encrypt(System.String)">
+            <summary>
+            Encrypts a string using the default salt value.
+            </summary>
+            <param name="plainText">String to encrypt.</param>
+            <returns>Encrypted string</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypts a string using the salt value.
+            </summary>
+            <param name="plainText">String to encrypt</param>
+            <param name="salt">Encryption salt</param>
+            <returns>Encrypted string</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Decrypt``1(System.String)">
+            <summary>
+            Decrypts an encrypted string to the generic type specified.
+            </summary>
+            <param name="encryptedText">String to decrypt.</param>
+            <returns>Decrypted Id</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Decrypt``1(System.String,System.String)">
+            <summary>
+            Decrypts an encrypted string to the generic type specified using the specified salt.
+            </summary>
+            <param name="encryptedText">String to decrypt.</param>
+            <param name="salt">The encrypting salt.</param>
+            <returns>Decrypted Id</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Decrypt(System.String)">
+            <summary>
+            Decrypts an encrypted string.
+            </summary>
+            <param name="encryptedText">string to decrypt.</param>
+            <returns>Decrypted Id</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Decrypt(System.String,System.String)">
+            <summary>
+            Decrypts an encrypted string using the specified salt value.
+            </summary>
+            <param name="encryptedText">String to decrypt.</param>
+            <param name="saltValue">Encryption salt.</param>
+            <returns>Decrypted string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.OldEncrypt``1(``0)">
+            <summary>
+            DO NOT USE
+            Added for backwards compatibility ONLY (new encrypt/decrypt are not implemented at this time - this is a quick fix )
+            Encrypts an integer value.
+            </summary>
+            <param name="value">Integer to encrypt.</param>
+            <returns>string representing the encrypted integer.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Base64Encode(System.String,System.Text.Encoding)">
+            <summary>
+            Encodes a Base64 string.
+            </summary>
+            <param name="plainText">Text to encode</param>
+            <param name="encoding">Optional. The encoding to use. Default is UTF8.</param>
+            <returns>Encoded string</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.Base64Decode(System.String,System.Text.Encoding)">
+            <summary>
+            Decodes a Base64 string.
+            </summary>
+            <param name="base64EncodedData">Text to decode</param>
+            <param name="encoding">Optional. The encoding to use. Default is UTF8.</param>
+            <returns>Encoded string</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.BWEncryption">
+            <summary>
+            A version of AES256 Encryption used by BW
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Encryption.Helpers.EncryptionHelper.BWEncryption.Decrypt``1(System.String,System.String)">
+            <summary>
+            Decrypts an encrypted string to the generic type specified using the specified salt.
+            </summary>
+            <param name="encryptedText">String to decrypt.</param>
+            <param name="password">The encrypting salt.</param>
+            <returns>Decrypted Id</returns>
+        </member>
+    </members>
+</doc>

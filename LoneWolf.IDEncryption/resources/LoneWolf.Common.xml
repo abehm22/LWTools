@@ -1,0 +1,1183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoneWolf.Common</name>
+    </assembly>
+    <members>
+        <member name="T:LoneWolf.Common.Address.AddressParser">
+            <summary>
+                <para>
+                    This is an attempt at a port of the Perl CPAN module Geo::StreetAddress::US
+                    to C#. It's a regex-based street address and street intersection parser for the
+                    United States. 
+                </para>
+                <para>
+                    The original Perl version was written and is copyrighted by
+                    Schuyler D. Erle &lt;schuyler@geocoder.us&gt; and is accessible at
+                    <a href="http://search.cpan.org/~timb/Geo-StreetAddress-US-1.03/US.pm">CPAN</a>.
+                </para>
+                <para>
+                    It says that "this library is free software; you can redistribute it and/or modify 
+                    it under the same terms as Perl itself, either Perl version 5.8.4 or, at 
+                    your option, any later version of Perl 5 you may have available."
+                </para>
+                <para>
+                    According to the <a href="http://dev.perl.org/licenses/">Perl licensing page</a>,
+                    that seems to mean you have a choice between GPL V1 (or at your option, a later version)
+                    or the Artistic License.
+                </para>
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Address.AddressParser._allSecondaryUnits">
+            <summary>
+            A combined dictionary of the ranged and rangeless secondary units.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Address.AddressParser.AddressParserRegion">
+            <summary>
+            The region data to use for the parsing engine.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.#ctor(LoneWolf.Common.Address.Region.IAddressParserRegion)">
+            <summary>
+            Initializes the <see cref="T:LoneWolf.Common.Address.AddressParser"/> class.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.GetApplicableFields(System.Text.RegularExpressions.Match)">
+            <summary>
+            Given a successful <see cref="T:System.Text.RegularExpressions.Match"/>, this method creates a dictionary 
+            consisting of the fields that we actually care to extract from the address.
+            </summary>
+            <param name="match">The successful <see cref="T:System.Text.RegularExpressions.Match"/> instance.</param>
+            <returns>A dictionary in which the keys are the name of the fields and the values
+            are pulled from the input address.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.GetNormalizedValueByRegexLookup(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Given a dictionary that maps regular expressions to USPS abbreviations,
+            this function finds the first entry whose regular expression matches the given
+            input value and supplies the corresponding USPS abbreviation as its output. If
+            no match is found, the original value is returned.
+            </summary>
+            <param name="map">The dictionary that maps regular expressions to USPS abbreviations.</param>
+            <param name="input">The value to test against the regular expressions.</param>
+            <returns>The correct USPS abbreviation, or the original value if no regular expression
+            matched successfully.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.GetNormalizedValueByStaticLookup(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Given a dictionary that maps strings to USPS abbreviations,
+            this function finds the first entry whose key matches the given
+            input value and supplies the corresponding USPS abbreviation as its output. If
+            no match is found, the original value is returned.
+            </summary>
+            <param name="map">The dictionary that maps strings to USPS abbreviations.</param>
+            <param name="input">The value to search for in the list of strings.</param>
+            <returns>The correct USPS abbreviation, or the original value if no string
+            matched successfully.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.GetNormalizedValueForField(System.String,System.String)">
+            <summary>
+            Given a field type and an input value, this method returns the proper USPS
+            abbreviation for it (or the original value if no substitution can be found or is
+            necessary).
+            </summary>
+            <param name="field">The type of the field.</param>
+            <param name="input">The value of the field.</param>
+            <returns>The normalized value.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.Normalize(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Given a set of fields pulled from a successful match, this normalizes each value
+            by stripping off some punctuation and, if applicable, converting it to a standard
+            USPS abbreviation.
+            </summary>
+            <param name="extracted">The dictionary of extracted fields.</param>
+            <returns>A dictionary of the extracted fields with normalized values.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.Parse(System.String,System.Boolean)">
+            <summary>
+            Attempts to parse the given input.
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="normalize">Optional. Normalizes the values in the parsed address before returning. Default is False.</param>
+            <returns>The parsed address, or null if the address could not be parsed.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Address.AddressParser.Normalize(LoneWolf.Common.Address.IParsedAddress)">
+            <summary>
+            Normalizes each value in the address by stripping off some punctuation and,
+            if applicable, converting it to a standard Post Office abbreviation.
+            </summary>
+            <param name="parsedAddress">The parsed address to normalize.</param>
+            <returns>An IParsedAddress with normalized values.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Address.IParsedAddress">
+            <summary>
+            Interface for interacting with the AddressParser class.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Address.IParsedAddress.ToUpper">
+            <summary>
+            Returns an IParsedAddress object with all of the values in upper case.
+            </summary>
+            <returns>An IParsedAddress object with all of the values in upper case.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.StreetNumber">
+            <summary>
+            The number of the street.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.PreDirectional">
+            <summary>
+            The direction that preceeds the street name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.StreetName">
+            <summary>
+            The name of the street including. This should also be used for PO Boxes.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.StreetSuffix">
+            <summary>
+            The suffix of the street (Rd, Dr, Ln, Ave, etc.)
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.PostDirectional">
+            <summary>
+            The direction that follows the street and suffix.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.UnitDescription">
+            <summary>
+            The description of the unit (Ste, Apt, Unit, Bldg, etc.)
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.UnitNumber">
+            <summary>
+            The number of the unit.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.City">
+            <summary>
+            The city.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.ProvinceCode">
+            <summary>
+            The 2 character ISO code for the province or state.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.PostalCode">
+            <summary>
+            The postal code, zip code or pin code for the region.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.IParsedAddress.CountryCode">
+            <summary>
+            The 2 character ISO code for the country.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Address.ParsedAddress">
+            <summary>
+            A default implementation of the IParsedAddress interface.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Address.ParsedAddress.#ctor">
+            <summary>
+            Creates a default implementation of the IParsedAddress interface.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Address.ParsedAddress.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:LoneWolf.Common.Address.ParsedAddress"/> class.
+            </summary>
+            <param name="addressFields">The fields that were parsed.</param>
+        </member>
+        <member name="T:LoneWolf.Common.Address.Region.CAAddressParserRegion">
+            <summary>
+            An implementation of an AddressParserRegion for Canada.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Address.Region.IAddressParserRegion">
+            <summary>
+            Interface for telling an AddressParser how to parse and address for a given country or region.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Address.Region.IAddressParserRegion.FormatPostalCode(System.String)">
+            <summary>
+            Formats a postal code in the standard format for the region.
+            </summary>
+            <param name="postalCode">The postal code to format.</param>
+            <returns>A formatted postal code for the region.</returns>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.Directionals">
+            <summary>
+            A Dictionary holding Full Name, Abbreviation values for directions in an address.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.Provinces">
+            <summary>
+            A Dictionary holding Full Name, Abbreviation values for provinces/states in an address.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.StreetSuffixes">
+            <summary>
+            A Dictionary holding Full Name, Abbreviation values for street suffixes in an address.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.RangedUnitDescriptions">
+            <summary>
+            A Dictionary holding Full Name, Abbreviation values for unit descriptions that have a number
+            after them in an address. For example, Suite, Apt, Room, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.RangelessUnitDescriptions">
+            <summary>
+            A Dictionary holding Full Name, Abbreviation values for unit descriptions that do not have a
+            number after them in an address. For example, Basement, Back, Upstairs, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.AddressFields">
+            <summary>
+            A Collection holding the parts of the address that we are interested in parsing.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.PostalCodeRegex">
+            <summary>
+            A regular expression for the postal code.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.CountryCode">
+            <summary>
+            The 2 character ISO country code.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.DefaultUnitDescriptionAbbreviation">
+            <summary>
+            A default value for a unit description abbreviation.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Address.Region.IAddressParserRegion.AddressRegex">
+            <summary>
+            The giant compiled regular expression that actually does the parsing. This should be a compiled
+            regular expression. One way is to make it a static variable that is compiled right away and then
+            return it each time. 
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Address.Region.USAddressParserRegion">
+            <summary>
+            An implementation of an AddressParserRegion for The United States of America.
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Core.ShortGuid">
+            <summary>
+            Class to create a shorter GUID. It is basically a base 64 encoded GUID.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.#ctor(System.Guid)">
+            <summary>
+            Create a 22-character case-sensitive short GUID from an existing GUID.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.ToString">
+            <summary>
+            Get the short GUID as a string.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.ToGuid">
+            <summary>
+            Get the Guid object from which the short GUID was created.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.Parse(System.String)">
+            <summary>
+            Return a <see cref="T:System.Guid"/> from a ShortGuid string.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            When <paramref name="shortGuid"/> is null.
+            </exception>
+            <exception cref="T:System.FormatException">
+            When the string passed in does not have a length of 22 characters.
+            </exception>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.IsValid(System.String)">
+            <summary>
+            Returns true if <paramref name="shortGuid"/> is a valid ShortGuid.
+            </summary>
+            <param name="shortGuid">The ShortGuid string to test.</param>
+            <returns>True if <paramref name="shortGuid"/> is a valid ShortGuid.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.NewShortGuid(System.Boolean)">
+            <summary>
+            Creates a new ShortGuid object.
+            </summary>
+            <param name="alphanumericOnly">
+            Optional. If true, only ShortGuid objects that contain letters and numbers will be returned.
+            Care should be taken as while highly inprobably, this could result in an infinite loop. There
+            is also no gaurantee on the speed of functions. Default is false.
+            </param>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.op_Implicit(LoneWolf.Common.Core.ShortGuid)~System.String">
+            <summary>
+            
+            </summary>
+            <param name="guid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Core.ShortGuid.op_Implicit(LoneWolf.Common.Core.ShortGuid)~System.Guid">
+            <summary>
+            
+            </summary>
+            <param name="shortGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LoneWolf.Common.Extensions.DateTimeExtensions">
+            <summary>
+            Holds extension methods for the DateTime class.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToFirstDayOfMonth(System.DateTime)">
+            <summary>
+            Returns a new DateTime object representing the first day of the current month.
+            </summary>
+            <param name="source">The DateTime object to get the first day of the month for.</param>
+            <returns>A new DateTime object representing the first day of the current month.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToLastDayOfMonth(System.DateTime)">
+            <summary>
+            Returns a new DateTime object representing the last day of the current month.
+            </summary>
+            <param name="source">The DateTime object to get the last day of the month for.</param>
+            <returns>A new DateTime object representing the last day of the current month.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToFirstDayOfYear(System.DateTime)">
+            <summary>
+            Returns a new DateTime object representing the first day of the current year.
+            </summary>
+            <param name="source">The DateTime object to get the first day of the year for.</param>
+            <returns>A new DateTime object representing the first day of the current year.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToLastDayOfYear(System.DateTime)">
+            <summary>
+            Returns a new DateTime object representing the last day of the current year.
+            </summary>
+            <param name="source">The DateTime object to get the last day of the year for.</param>
+            <returns>A new DateTime object representing the last day of the current year.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.RemoveTime(System.DateTime)">
+            <summary>
+            Returns a new DateTime object with the time set to midnight.
+            </summary>
+            <param name="source">The DateTime object to remove the time from.</param>
+            <returns>A new DateTime object with the time set to midnight.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToDate(System.Nullable{System.DateTime})">
+            <summary>
+            Returns the Date portion of a nullable DateTime object. If the DataTime object is NULL,
+            the NULL is returned.
+            </summary>
+            <param name="dateTime">The nullable DateTime object to get the date from.</param>
+            <returns>The date portion of the DateTime object or NULL if the <paramref name="dateTime"/> is NULL.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToUtcDate(System.Nullable{System.DateTime})">
+            <summary>
+            Returns the Date portion of a nullable DateTime object. It will first convert the time portion of
+            the date to UTC time. If the DataTime object is NULL, the NULL is returned.
+            </summary>
+            <param name="dateTime">The nullable DateTime object to get the date from.</param>
+            <returns>The date portion of the DateTime object or NULL if the <paramref name="dateTime"/> is NULL.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToUtcDateTime(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the time portion of the date to UTC time. If the DataTime object is NULL,
+            the NULL is returned.
+            </summary>
+            <param name="dateTime">The nullable DateTime object to get the date from.</param>
+            <returns>The date portion of the DateTime object or NULL if the <paramref name="dateTime"/> is NULL.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToLocalDate(System.Nullable{System.DateTime})">
+            <summary>
+            Returns the Date portion of a nullable DateTime object. It will first convert the time portion of
+            the date to Local time. If the DataTime object is NULL, the NULL is returned.
+            </summary>
+            <param name="dateTime">The nullable DateTime object to get the date from.</param>
+            <returns>The date portion of the DateTime object or NULL if the <paramref name="dateTime"/> is NULL.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.ToLocalDateTime(System.Nullable{System.DateTime})">
+            <summary>
+            Converts the time portion of the date to Local time. If the DataTime object is NULL,
+            the NULL is returned.
+            </summary>
+            <param name="dateTime">The nullable DateTime object to get the date from.</param>
+            <returns>The date portion of the DateTime object or NULL if the <paramref name="dateTime"/> is NULL.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.GetNextAnniversary(System.DateTime)">
+            <summary>
+            
+            </summary>
+            <param name="eventDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DateTimeExtensions.GetNextAnniversary(System.DateTime,System.DateTime)">
+            <summary>
+            
+            </summary>
+            <param name="eventDate"></param>
+            <param name="fromDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LoneWolf.Common.Extensions.DbExtensions">
+            <summary>
+            Holds extension functions dealing with database types.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.DbExtensions.IsCharacterData(System.Data.DbType)">
+            <summary>
+            Returns True if the DbType is either AnsiString, AnsiStringFixedLength, String or StringFixedLength.
+            </summary>
+            <param name="dbType">The DbType to test.</param>
+            <returns>True if the DbType is either AnsiString, AnsiStringFixedLength, String or StringFixedLength.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Extensions.NumberExtension">
+            <summary>
+            Holds extensions dealing with number primitive types.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToPrettySize(System.Int32,System.Int32)">
+            <summary>
+            Converts an int to a memory size string.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToPrettySize(System.Int64,System.Int32)">
+            <summary>
+            Converts a long to a memory size string.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToTb(System.Int32,System.Int32)">
+            <summary>
+            Converts an int to terabytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToGb(System.Int32,System.Int32)">
+            <summary>
+            Converts an int to gigabytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToMb(System.Int32,System.Int32)">
+            <summary>
+            Converts an int to megabytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToKb(System.Int32,System.Int32)">
+            <summary>
+            Converts an int to kilobytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToTb(System.Int64,System.Int32)">
+            <summary>
+            Converts a long to terabytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToGb(System.Int64,System.Int32)">
+            <summary>
+            Converts a long to gigabytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToMb(System.Int64,System.Int32)">
+            <summary>
+            Converts a long to megabytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.ToKb(System.Int64,System.Int32)">
+            <summary>
+            Converts a long to kilobytes.
+            </summary>
+            <param name="value"></param>
+            <param name="decimalPlaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.RoundAsCurrency(System.Decimal,System.Int32)">
+            <summary>
+            Rounds a decimal for currency calculations using AwayFromZero rounding.
+            </summary>
+            <param name="value">The value to round.</param>
+            <param name="decimals">Optional. The number of decimal places to round too. Default is 2.</param>
+            <returns>The rounded value.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.NumberExtension.RoundAsCurrency(System.Double,System.Int32)">
+            <summary>
+            Rounds a double for currency calculations using AwayFromZero rounding.
+            </summary>
+            <param name="value">The value to round.</param>
+            <param name="decimals">Optional. The number of decimal places to round too. Default is 2.</param>
+            <returns>The rounded value.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Extensions.ObjectExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.ObjectExtension.Clone``1(``0)">
+            <summary>
+            Performs a Deep Clone on the provided object
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LoneWolf.Common.Extensions.StringExtension">
+            <summary>
+            Holds extension methods for the String class.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ReplaceBetween(System.String,System.String,System.String,System.String)">
+            <summary>
+            Replaces the contents of a string between two sub strings within the source string.
+            </summary>
+            <param name="source">The source string to replace.</param>
+            <param name="replaceWith">The string to replace with.</param>
+            <param name="start">The string to mark the start of the replacement position.</param>
+            <param name="end">The string to mark the end of the replacement position.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToTitle(System.String)">
+            <summary>
+            Returns a string that has the proper words capitalized specified by the current culture.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.Clean(System.String,System.Boolean)">
+            <summary>
+            Removes inner spaces and then calls Trim().
+            </summary>
+            <param name="source">String to Clean</param>
+            <param name="removeAllInnerSpaces">If True, all inner spaces will be removed. If False, only extra inner spaces will be removed.</param>
+            <returns>A clean string! Yay!</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.Right(System.String,System.Int32)">
+            <summary>
+            Returns the right most number of characters of a string. If numChars is greater than the length of the string,
+            then the entire string is returned.
+            </summary>
+            <param name="source">The source string.</param>
+            <param name="numChars">The number of characters to return.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the number of characters passed in is less than zero.</exception>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.Left(System.String,System.Int32)">
+            <summary>
+            Returns the left most number of characters of a string. If numChars is greater than the length of the string,
+            then the entire string is returned.
+            </summary>
+            <param name="source">The source string.</param>
+            <param name="numChars">The number of characters to return.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the number of characters passed in is less than zero.</exception>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToFixedLength(System.String,System.Int32,System.Char,LoneWolf.Common.Enums.Direction)">
+            <summary>
+            Pads a string using the parameters described below.
+            </summary>
+            <param name="source">The source string.</param>
+            <param name="minLength">The minimum length the string should be after padding.</param>
+            <param name="padDirection">Optional. The direction for the padding.</param>
+            <param name="padChar">Optional. The character to use as the padding character. Default is a space.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.LengthLessThanOrBlank(System.String,System.Int32)">
+            <summary>
+            Kind of funny named method but basically if the string length is greater than the length provided
+            it returns an empty string, if its less than or equal to the length it returns the original string
+            </summary>
+            <param name="source"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToStringEscapedForJavaScript(System.String)">
+            <summary>
+            Returns a string that has been escaped to be used as a string constant in JavaScript. This is helpful when creating
+            a string that is used in the JavaScript alert() function.
+            </summary>
+            <param name="source">The string to escape.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToHtml(System.String)">
+            <summary>
+            Returns a string holding illegal html characters converted to there equivalent HTML code.
+            </summary>
+            <param name="source">The string to convert to HTML.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToNullableInt64(System.String)">
+            <summary>
+            Converts a string to a nullable Int64. If the string is not a valid integer null will be returned.
+            </summary>
+            <param name="stringToInt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToInt64(System.String)">
+            <summary>
+            Converts a string to an Int64. If the string is not a valid integer 0 will be returned.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToNullableInt(System.String)">
+            <summary>
+            Converts a string to a nullable Int32. If the string is not a valid integer null will be returned.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToInt(System.String)">
+            <summary>
+            Converts a string to a Int32. If the string is not a valid integer 0 will be returned.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToNullableBoolean(System.String)">
+            <summary>
+            Converts a string to a nullable Boolean. If the string is not a valid bool null will be returned.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToBoolean(System.String)">
+            <summary>
+            Converts a string to a Boolean. If the string is not a valid bool false will be returned.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToNullableDecimal(System.String,System.Boolean)">
+            <summary>
+            Converts a string to it's decimal equivalent. If the string cannot be converted to a decimal, null is returned.
+            </summary>
+            <param name="source">The string to attempt to convert.</param>
+            <param name="clean">Optional. If true, attempt to remove all non numeric characters from the string first.</param>
+            <returns>The decimal equivalent of the string passed in, or null</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToDecimal(System.String,System.Boolean)">
+            <summary>
+            Converts a string to it's decimal equivalent. If the string cannot be converted to a decimal, 0 is returned.
+            </summary>
+            <param name="source">The string to attempt to convert.</param>
+            <param name="clean">Optional. If true, attempt to remove all non numeric characters from the string first.</param>
+            <returns>The decimal equivalent of the string passed in, or null</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.ToNullableDateTime(System.String,System.String)">
+            <summary>
+            Converts a string to it's DateTime equivalent. If the string cannot be converted, null is returned.
+            </summary>
+            <param name="stringToDateTime">The string to convert.</param>
+            <param name="dateTimeFormat">The format of the date to try and convert.</param>
+            <returns>The datetime equivalent of the string, or null.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Extensions.StringExtension.RemoveCarriageReturns(System.String)">
+            <summary>
+            Removes any carriage returns from the string.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LoneWolf.Common.Helpers.AddressHelper">
+            <summary>
+            Holds common helper functions dealing with geographical addresses.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AddressHelper.Parse(System.String,System.String,System.Boolean)">
+            <summary>
+            Attempts to parse an address string. Returns the parsed address if the parsing was successful.
+            </summary>
+            <param name="address">The address string to attempt to parse.</param>
+            <param name="countryCode">
+            The 2 character ISO country code for the country to use for the parsing. Currently, only US and CA are supported.
+            </param>
+            <param name="normalize">
+            Optional. Will normalize the address values to standard values according to the country code. Default is False.
+            </param>
+            <returns>True if the address was successfully parsed.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AddressHelper.Parse(System.String,LoneWolf.Common.Address.Region.IAddressParserRegion,System.Boolean)">
+            <summary>
+            Attempts to parse an address string. Returns the parsed address if the parsing was successful.
+            </summary>
+            <param name="address">The address string to attempt to parse.</param>
+            <param name="addressParserRegion">An IAddressParserRegion object to use to do the parsing.</param>
+            <param name="normalize">
+            Optional. Will normalize the address values to standard values according to the country code. Default is False.
+            </param>
+            <returns>True if the address was successfully parsed.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AddressHelper.TryParse(System.String,System.String,LoneWolf.Common.Address.IParsedAddress@,System.Boolean)">
+            <summary>
+            Attempts to parse an address string. Returns True if the address string was successfully parsed, otherwise False.
+            </summary>
+            <param name="address">The address string to attempt to parse.</param>
+            <param name="countryCode">
+            The 2 character ISO country code for the country to use for the parsing. Currently, only US and CA are supported.
+            </param>
+            <param name="parsedAddress">
+            The parsed address if the string was able to be parsed. Otherwise this will be returned as null.
+            </param>
+            <param name="normalize">
+            Optional. Will normalize the address values to standard values according to the country code. Default is False.
+            </param>
+            <returns>True if the address was successfully parsed.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AddressHelper.TryParse(System.String,LoneWolf.Common.Address.Region.IAddressParserRegion,LoneWolf.Common.Address.IParsedAddress@,System.Boolean)">
+            <summary>
+            Attempts to parse an address string. Returns True if the address string was successfully parsed, otherwise False.
+            </summary>
+            <param name="address">The address string to attempt to parse.</param>
+            <param name="addressParserRegion">An IAddressParserRegion object to use to do the parsing.</param>
+            <param name="parsedAddress">
+            The parsed address if the string was able to be parsed. Otherwise this will be returned as null.
+            </param>
+            <param name="normalize">
+            Optional. Will normalize the address values to standard values according to the country code. Default is False.
+            </param>
+            <returns>True if the address was successfully parsed.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AddressHelper.Normalize(LoneWolf.Common.Address.IParsedAddress,System.String)">
+            <summary>
+            Normalizes the address with standard naming conventions according to the region the address belongs too.
+            If countryCode is not specified, then the parsedAddress.CountryCode value is used. If that is null, then
+            an exception is thrown.
+            </summary>
+            <param name="parsedAddress">The address to normalize</param>
+            <param name="countryCode">
+            Optional. The 2 character ISO code for the country to use for the normalization. If this value is null, then
+            the CountryCode specified in the parsedAddress parameter is used. Currently, only US and CA are supported.
+            </param>
+            <returns>An IParsedAddress object with all the values normalized to standard values.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AddressHelper.Normalize(LoneWolf.Common.Address.IParsedAddress,LoneWolf.Common.Address.Region.IAddressParserRegion)">
+            <summary>
+            Normalizes the address with standard naming conventions according to the region the address belongs too.
+            </summary>
+            <param name="parsedAddress">The address to normalize</param>
+            <param name="addressParserRegion">An IAddressParserRegion object to use to do the parsing.</param>
+            <returns>An IParsedAddress object with all the values normalized to standard values.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Helpers.AppSettingsHelper">
+            <summary>
+            Helper class for getting application settings from the <appSettings /> section of an App[Web].config file.
+            </summary>
+        </member>
+        <member name="F:LoneWolf.Common.Helpers.AppSettingsHelper.SharedConnectionStrings">
+            <summary>
+            Holds a dictionary of already retrieved shared connection strings.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AppSettingsHelper.GetConnectionString(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Retrieves a connection string from the name passed in from the connections strings section of the App[Web].config file.
+            </summary>
+            <param name="name">The name of the connection string to retrieve.</param>
+            <param name="dataSource">The data source to use in the connection string. The current value will be replaced.</param>
+            <param name="initialCatalog">The initial catalog to use in the connection string. The current value will be replaced.</param>
+            <param name="userId">The user id to use for the connection string. The current value will be replaced.</param>
+            <param name="password">The password to use for the connection string. The current value will be replaced.</param>
+            <returns>A connection string to be used to connect to a data source.</returns>
+            <exception cref="T:System.Data.ObjectNotFoundException">Thrown when the name is not found in the connection strings section of the App[Web].config file.</exception>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.AppSettingsHelper.GetSharedConnectionString(System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns a connection string that can be shared amongst many Entity Framework models. Simply use {0}, {1} and
+            {2} in the connection string for the .csdl, .ssdl and .msl files respectively.
+            
+            For instance, the following connection string
+            
+            metadata=res://*/{0}.csdl|res://*/{1}.ssdl|res://*/{2}.msl;provider=System.Data.SqlClient
+            
+            would produce
+            
+            metadata=res://*/Member.csdl|res://*/Member.ssdl|res://*/Member.msl;provider=System.Data.SqlClient
+            
+            if "Member" was passed in for the csdl parameter 
+            </summary>
+            <param name="name">The name of the connection string.</param>
+            <param name="csdl">The name of the csdl file.</param>
+            <param name="ssdl">Optional. The name of the ssdl file. If this is null, then the value of csdl is used.</param>
+            <param name="msl">Optional. The name of the msl file. If this is null, then the value of csdl is used.</param>
+            <returns></returns>
+        </member>
+        <member name="P:LoneWolf.Common.Helpers.AppSettingsHelper.IsTestApp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Helpers.FormatHelper">
+            <summary>
+            Contains convenience methods to format various data types.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.IsValidEmailAddress(System.String)">
+            <summary>
+            Returns true if the string passed in is a valid email address.
+            </summary>
+            <param name="emailAddress">The email address to test.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.FormatForFullTextSearch(System.String)">
+            <summary>
+            Formats a string so it can be used correctly in a full text search for an MS SQL database.
+            </summary>
+            <param name="text">The text to format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.FormatForJavaScript(System.String)">
+            <summary>
+            Formats the string passed in to be used as a JavaScript string. For instance, replaces all occurences of the
+            single quote ' with \'.
+            </summary>
+            <param name="value">The string to format.</param>
+            <returns>A valid javascript string.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.FormatNumber(System.Nullable{System.Decimal},System.Int32,System.Boolean,System.Boolean,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Formats a decimal data type to a string.
+            </summary>
+            <param name="value">The number to format.</param>
+            <param name="numDecimalPlaces">
+            Optional. The maximum number of decimal places to include in the format string. The value will be rounded using
+            MidpointRounding.AwayFromZero. Default is 0.
+            </param>
+            <param name="useNumberGroupSeparator">
+            Optional. Include the number group separater (the comma between the thousands and hundreds place). Default is true.
+            </param>
+            <param name="forceDecimalPlaces">
+            Optional. Force the format to have the number of decimal places specified in the numDecimalPlaces parameter regardless
+            if they are needed. For example, if numDecimalPlaces is 3 and we are formatting 4.5, the formatted string will be 4.500.
+            Default is false.
+            </param>
+            <param name="numberFormatInfo">
+            Optional. The NumberFormatInfo to use for the format. This allows for the correct number group separator to be
+            used depending on the language or culture specified. Default is CultureInfo.CurrentCulture.NumberFormat.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.FormatNumber(System.Object,System.Int32,System.Boolean,System.Boolean,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Formats an object as numeric string. The object must be able to be converted to a decimal by using the Convert.ToDecimal() function.
+            </summary>
+            /// <param name="value">The object containing the number to format.</param>
+            <param name="numDecimalPlaces">
+            Optional. The maximum number of decimal places to include in the format string. The value will be rounded using
+            MidpointRounding.AwayFromZero. Default is 0.
+            </param>
+            <param name="useNumberGroupSeparator">
+            Optional. Include the number group separater (the comma between the thousands and hundreds place). Default is true.
+            </param>
+            <param name="forceDecimalPlaces">
+            Optional. Force the format to have the number of decimal places specified in the numDecimalPlaces parameter regardless
+            if they are needed. For example, if numDecimalPlaces is 3 and we are formatting 4.5, the formatted string will be 4.500.
+            Default is false.
+            </param>
+            <param name="numberFormatInfo">
+            Optional. The NumberFormatInfo to use for the format. This allows for the correct number group separator to be
+            used depending on the language or culture specified. Default is CultureInfo.CurrentCulture.NumberFormat.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.FormatNumber(System.Nullable{System.Double},System.Int32,System.Boolean,System.Boolean,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Formats a double data type to a string.
+            </summary>
+            <param name="value">The number to format.</param>
+            <param name="numDecimalPlaces">
+            Optional. The maximum number of decimal places to include in the format string. The value will be rounded using
+            MidpointRounding.AwayFromZero. Default is 0.
+            </param>
+            <param name="useNumberGroupSeparator">
+            Optional. Include the number group separater (the comma between the thousands and hundreds place). Default is true.
+            </param>
+            <param name="forceDecimalPlaces">
+            Optional. Force the format to have the number of decimal places specified in the numDecimalPlaces parameter regardless
+            if they are needed. For example, if numDecimalPlaces is 3 and we are formatting 4.5, the formatted string will be 4.500.
+            Default is false.
+            </param>
+            <param name="numberFormatInfo">
+            Optional. The NumberFormatInfo to use for the format. This allows for the correct number group separator to be
+            used depending on the language or culture specified. Default is CultureInfo.CurrentCulture.NumberFormat.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.FormatHelper.FormatPhoneNumber(System.String,System.String)">
+            <summary>
+            Formats a string to a phone number depending on the country passed in. If no country is passed in, US/Canada format is used.
+            </summary>
+            <param name="phoneNumber">The string to format.</param>
+            <param name="countryCode">Optional. The country to create the format for. Default is US/Canada.</param>
+            <returns></returns>
+        </member>
+        <member name="T:LoneWolf.Common.Helpers.ReflectionHelper">
+            <summary>
+            Contains methods that utilize reflection to perform specific tasks.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.ReflectionHelper.SetPropertyRecursive``1(``0,System.String,System.Object)">
+            <summary>
+            Set value of specified property on provided entity, will also attempt to set the property on all child collections recursively
+            </summary>
+            <typeparam name="TFieldType">Type of value</typeparam>
+            <typeparam name="TEntity">Type of entity having property set</typeparam>
+            <param name="value">Value to set on property</param>
+            <param name="propertyName">Name of property</param>
+            <param name="entity">Entity to set the property of</param>
+        </member>
+        <member name="T:LoneWolf.Common.Helpers.UrlHelper">
+            <summary>
+            Contains helpful methods when dealing with Urls
+            </summary>
+        </member>
+        <member name="T:LoneWolf.Common.Helpers.VersionHelper">
+            <summary>
+            Contains helpful methods when dealing with WolfTracks Versions
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Helpers.VersionHelper.ValidateWolfTracksVersion(System.String,System.String)">
+            <summary>
+            This Function is a simple string comparision to determine if the currentVersion passed in is equal to or greater the the minimumVersion passed
+            in according to are versioning standard for wolfTracks
+            </summary>
+            <param name="minimumVersion">Name of property</param>
+            <param name="currentVersion">Entity to set the property of</param>
+            <returns>bool</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Net.IPAddressSet">
+            <summary>
+            Holds a set of IP addresses and fully supports IPv6. IP addresses can be added to the set in 3 ways:
+            
+            1) A single address in IPv4 dot notation (127.0.0.1) or IPv6 colon notation (128:db45::)
+            2) A range of addresses in either IPv4 or IPv6 notation separated by a hyphen
+            3) CIDR notation (Not yet implemented actually)
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.#ctor">
+            <summary>
+            Constructs an empty IPAddressSet object.
+            </summary>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.#ctor(System.String)">
+            <summary>
+            Creates a new IPAddressSet object from the specified range string. The range string should be valid range values separated
+            by a comma. Valid range values are of the form 192.168.1.1 or 192.168.1.5-192.168.1.50.
+            IPv6 string representations are also valid. For example, the string 192.168.1.1,192.168.1.5-192.168.1.8 would add
+            the following IP addresses to the set:
+            
+                192.168.1.1
+                192.168.1.5
+                192.168.1.6
+                192.168.1.7
+                192.168.1.8
+            </summary>
+            <param name="ipAddressRange">The range string to add to the set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.#ctor(System.String,System.Char)">
+            <summary>
+            Creates a new IPAddressSet object from the specified range string. The range string should be valid range values separated
+            by the delimeter value. Valid range values are of the form 192.168.1.1, 192.168.1.5-192.168.1.50.
+            IPv6 string representations are also valid. For example, if ';' was the delimeter value, the
+            string 192.168.1.1;192.168.1.5-192.168.1.8 would add the following IP addresses to the set:
+            
+                192.168.1.1
+                192.168.1.5
+                192.168.1.6
+                192.168.1.7
+                192.168.1.8
+            </summary>
+            <param name="ipAddressRange">The range string to add to the set.</param>
+            <param name="delimeter">The delimeter used in ipAddressRange to separate range values.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new IPAddressSet object from the specified IP addresses. The IP addresses can be specified in any order.
+            </summary>
+            <param name="ipAddress1">The first IP address in the range.</param>
+            <param name="ipAddress2">The second IP address in the range.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.#ctor(System.Numerics.BigInteger,System.Numerics.BigInteger)">
+            <summary>
+            Creates a new IPAddressSet object from the specified IP addresses. The IP addresses can be specified in any order.
+            </summary>
+            <param name="ipAddress1">The first IP address in the range.</param>
+            <param name="ipAddress2">The second IP address in the range.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.StringToIPNumber(System.String)">
+            <summary>
+            Converts a string representation of an IP address to a number for easy of comparison.
+            </summary>
+            <param name="ipAddress">The IP address string to convert.</param>
+            <returns>A number that represents the IP address.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.AddRange(System.String,System.String)">
+            <summary>
+            Adds a range of IP addresses to this set. The addresses can be specified in any order.
+            </summary>
+            <param name="ipAddress1">The first IP address in the range.</param>
+            <param name="ipAddress2">The second IP address in the range.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.AddRange(System.Numerics.BigInteger,System.Numerics.BigInteger)">
+            <summary>
+            Adds a range of IP addresses to this set. The addresses can be specified in any order.
+            </summary>
+            <param name="ipAddress1">The first IP address in the range.</param>
+            <param name="ipAddress2">The second IP address in the range.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.AddRange(System.String)">
+            <summary>
+            Adds a range of IP addresses from the specified range string. The range string should be valid range values separated
+            by a comma. Valid range values are of the form 192.168.1.1, 192.168.1.5-192.168.1.50.
+            IPv6 string representations are also valid. For example, the string 192.168.1.1,192.168.1.5-192.168.1.8 would add
+            the following IP addresses to the set:
+            
+                192.168.1.1
+                192.168.1.5
+                192.168.1.6
+                192.168.1.7
+                192.168.1.8
+            
+            Single IP addresses can also be specified using this function.
+            </summary>
+            <param name="ipAddressRange">The range string to add to the set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.AddIPAddress(System.String)">
+            <summary>
+            Adds a single IP address to the set.
+            </summary>
+            <param name="ipAddress">The IP address to add to the set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.AddIPAddress(System.Numerics.BigInteger)">
+            <summary>
+            Adds a single IP address to the set.
+            </summary>
+            <param name="ipAddress">The IP address to add to the set.</param>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.Contains(System.String)">
+            <summary>
+            Returns true if the specified IP address is in this set of IP addresses.
+            </summary>
+            <param name="ipAddress">The IP address to test</param>
+            <returns>True if the IP address is in this set.</returns>
+        </member>
+        <member name="M:LoneWolf.Common.Net.IPAddressSet.Contains(System.Numerics.BigInteger)">
+            <summary>
+            Returns true if the specified IP address is in this set of IP addresses.
+            </summary>
+            <param name="ipAddress">The IP address to test</param>
+            <returns>True if the IP address is in this set.</returns>
+        </member>
+        <member name="T:LoneWolf.Common.Resources.CommonResource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.EmailAddress">
+            <summary>
+              Looks up a localized string similar to Email address.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ErrorSavingToDatabase">
+            <summary>
+              Looks up a localized string similar to Error saving to database..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.FirstName">
+            <summary>
+              Looks up a localized string similar to First name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.LastName">
+            <summary>
+              Looks up a localized string similar to Last name.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.Password">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ThingCannotBeLongerThanMaxCharacters">
+            <summary>
+              Looks up a localized string similar to {0} cannot be longer than {1} characters..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ThingFailedValidation">
+            <summary>
+              Looks up a localized string similar to {0} failed validation..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ThingHasBeenDeletedByAnotherUser">
+            <summary>
+              Looks up a localized string similar to {0} has been deleted by another user..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ThingHasBeenModifiedByAnotherUser">
+            <summary>
+              Looks up a localized string similar to {0} has been modified by another user..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ThingIsNotValid">
+            <summary>
+              Looks up a localized string similar to {0} is not valid..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ThingIsRequired">
+            <summary>
+              Looks up a localized string similar to {0} is required..
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.Username">
+            <summary>
+              Looks up a localized string similar to Username.
+            </summary>
+        </member>
+        <member name="P:LoneWolf.Common.Resources.CommonResource.ValueIsNotAValidThing">
+            <summary>
+              Looks up a localized string similar to {0} is not a valid {1}..
+            </summary>
+        </member>
+    </members>
+</doc>
